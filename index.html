@@ -1,0 +1,789 @@
+<!doctype html>
+<html lang="de">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <title>Werkstatt KI · Claude Code für Handwerker, vor Ort an einem Tag</title>
+    <meta
+      name="description"
+      content="Der Claude Code Workshop für Handwerksunternehmer in der Region Speyer. Mit Christian Lindt (KI-Agenten im Fensterbau) und Moritz Kompaß. Du installierst Claude Code, lernst die Workflows und baust deinen ersten KI-Agenten."
+    />
+    <meta name="theme-color" content="#FBFBFD" />
+    <link rel="canonical" href="https://claude-workshop.de/" />
+
+    <!-- Open Graph -->
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://claude-workshop.de/" />
+    <meta property="og:title" content="Werkstatt KI · Claude Code für Handwerker" />
+    <meta property="og:description" content="Der Vor-Ort Claude Code Workshop für Handwerksunternehmer in der Region Speyer. Du gehst raus mit einem laufenden KI-System und deinem ersten Agenten." />
+    <meta property="og:locale" content="de_DE" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Geist:wght@300;400;500;600;700&family=Geist+Mono:wght@400;500&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <a class="skip" href="#main">Zum Inhalt springen</a>
+
+    <header class="nav" id="nav">
+      <a class="nav__brand" href="#top" aria-label="Werkstatt KI – Startseite">
+        <svg class="nav__mark" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+          <path d="M4 20L12 4l8 16M8 20l4-8 4 8" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+        <span>Werkstatt&nbsp;KI</span>
+      </a>
+      <nav class="nav__links" aria-label="Hauptnavigation">
+        <a href="#problem">Problem</a>
+        <a href="#ergebnis">Ergebnis</a>
+        <a href="#programm">Programm</a>
+        <a href="#preis">Preis</a>
+      </nav>
+      <a href="#kontakt" class="btn btn--pill">
+        <span>Platz sichern</span>
+        <span class="btn__icon" aria-hidden="true">
+          <svg viewBox="0 0 16 16" fill="none"><path d="M5 11l6-6M6 5h5v5" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </span>
+      </a>
+    </header>
+
+    <main id="main">
+      <!-- ============================================================
+           HERO · Apple-style centered + product mockup below
+           ============================================================ -->
+      <section class="hero" id="top">
+        <div class="hero__inner">
+          <div class="hero__copy">
+            <span class="eyebrow">
+              <span class="eyebrow__dot" aria-hidden="true"></span>
+              Pilot No. 01 · Region Speyer
+            </span>
+
+            <h1 class="hero__headline">
+              <span class="hero__line">Der unfaire</span>
+              <span class="hero__line">Wettbewerbsvorteil.</span>
+            </h1>
+
+            <p class="hero__subhead">Dein KI-Workshop für Handwerker. Vor Ort an einem Tag.</p>
+
+            <p class="hero__lead">
+              99&nbsp;% der Handwerksbetriebe in der Region nutzen KI nicht. Nach diesem
+              Workshop gehörst du zum einen Prozent: mit einem laufenden System auf dem Laptop
+              und einem ersten KI-Agenten, gebaut mit Christian aus dem echten Betrieb.
+            </p>
+
+            <div class="hero__cta">
+              <a href="#kontakt" class="btn btn--pill btn--lg btn--solid">
+                <span>Platz sichern</span>
+                <span class="btn__icon" aria-hidden="true">
+                  <svg viewBox="0 0 16 16" fill="none"><path d="M5 11l6-6M6 5h5v5" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                </span>
+              </a>
+              <a href="#programm" class="btn btn--text">
+                Programm ansehen
+                <svg viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              </a>
+            </div>
+          </div>
+
+          <aside class="hero__aside" aria-hidden="true">
+            <div class="hero__visual">
+              <div class="hero__visual-bezel">
+                <div class="hero__visual-core">
+                  <div class="demo">
+                    <div class="demo__head">
+                      <span class="demo__dot"></span>
+                      <span class="demo__dot"></span>
+                      <span class="demo__dot"></span>
+                      <span class="demo__url">posteingang · 09:42</span>
+                    </div>
+                    <div class="demo__body">
+                      <div class="demo__msg demo__msg--in">
+                        <div class="demo__sender">
+                          <div class="demo__avatar"></div>
+                          <div>
+                            <p class="demo__name">K. Schmitt</p>
+                            <p class="demo__meta">Anfrage · 09:42</p>
+                          </div>
+                        </div>
+                        <p class="demo__text">„Brauche ein Angebot für 4 Holzfenster im Altbau, 1. OG. Hat es eine Woche Zeit?“</p>
+                      </div>
+
+                      <div class="demo__msg demo__msg--out">
+                        <p class="demo__title">Angebot 1248-A</p>
+                        <p class="demo__sub">4 Holzfenster · Bestandsbau · 12 Positionen</p>
+                        <div class="demo__row">
+                          <span>Summe netto</span>
+                          <span class="demo__row-val">14.320 €</span>
+                        </div>
+                        <div class="demo__row demo__row--muted">
+                          <span>Erwartete Marge</span>
+                          <span class="demo__row-val">1.420 € · 9,9 %</span>
+                        </div>
+                        <button class="demo__send" type="button" tabindex="-1">
+                          <span>Bereit zum Senden</span>
+                          <span class="btn__icon btn__icon--mini">
+                            <svg viewBox="0 0 16 16" fill="none"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                          </span>
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="hero__chip hero__chip--a">
+                <span class="hero__chip-pulse" aria-hidden="true"></span>
+                23 Sek. Bearbeitungszeit
+              </div>
+              <div class="hero__chip hero__chip--b">
+                läuft seit 6 Monaten · Roeli GmbH
+              </div>
+            </div>
+          </aside>
+
+          <div class="hero__meta">
+            <div class="hero__meta-item">
+              <p class="hero__meta-label">Wann</p>
+              <p class="hero__meta-val">Pilot · Frühjahr 2026</p>
+            </div>
+            <div class="hero__meta-item">
+              <p class="hero__meta-label">Wo</p>
+              <p class="hero__meta-val">Region Speyer · Rhein-Neckar</p>
+            </div>
+            <div class="hero__meta-item">
+              <p class="hero__meta-label">Dauer</p>
+              <p class="hero__meta-val">1 Tag · 10–17 Uhr</p>
+            </div>
+            <div class="hero__meta-item">
+              <p class="hero__meta-label">Plätze</p>
+              <p class="hero__meta-val"><span class="hero__meta-emph">5</span><span class="hero__meta-faint"> / 8 verfügbar</span></p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ============================================================
+           PROBLEM
+           ============================================================ -->
+      <section class="problem" id="problem">
+        <div class="container">
+          <header class="section-head">
+            <span class="eyebrow">01 · Diagnose</span>
+            <h2 class="section-title section-title--center">
+              Halbe Tage gehen für Dinge drauf, <em>für die du Handwerker geworden bist.</em>
+            </h2>
+            <p class="section-lead">
+              Die fünf Sätze, die wir von Handwerksunternehmern jede Woche hören.
+              Wenn du auch nur einen kennst, bist du hier richtig.
+            </p>
+          </header>
+
+          <ol class="quotes" role="list">
+            <li class="quote">
+              <span class="quote__num">01</span>
+              <p>„Halbe Tage gehen für <em>Angebote schreiben</em> drauf, statt für die Baustelle.“</p>
+            </li>
+            <li class="quote">
+              <span class="quote__num">02</span>
+              <p>„Das Telefon klingelt, der Posteingang läuft über. <em>Und ich komm zu nix</em>.“</p>
+            </li>
+            <li class="quote">
+              <span class="quote__num">03</span>
+              <p>„Eine Bürokraft ist nicht zu finden. Und wenn, dann kostet sie <em>3.500&nbsp;€ im Monat</em>.“</p>
+            </li>
+            <li class="quote">
+              <span class="quote__num">04</span>
+              <p>„Ausschreibungen frisst Stunden, <em>die ich nicht habe</em>.“</p>
+            </li>
+            <li class="quote">
+              <span class="quote__num">05</span>
+              <p>„Überall <em>‚KI, KI, KI‘</em>. Aber ich hab keine Ahnung, wo ich anfangen soll.“</p>
+            </li>
+            <li class="quote">
+              <span class="quote__num">06</span>
+              <p>„Sonntags sitz ich am Schreibtisch, <em>statt mit der Familie zu sein</em>.“</p>
+            </li>
+          </ol>
+
+          <p class="problem__bridge">
+            Genau das macht Claude Code. <em>Auf deinem Laptop. Ohne Programmieren.</em>
+          </p>
+        </div>
+      </section>
+
+      <!-- ============================================================
+           BENTO · Was bleibt
+           ============================================================ -->
+      <section class="ergebnis" id="ergebnis">
+        <div class="container">
+          <header class="section-head">
+            <span class="eyebrow">02 · Was bleibt</span>
+            <h2 class="section-title section-title--center">
+              Du gehst raus mit <em>einem laufenden System.</em>
+            </h2>
+            <p class="section-lead">
+              Keine Notizen, keine Folien. Sondern Claude Code installiert auf deinem Laptop,
+              ein erster KI-Agent live im Einsatz und ein 30-Tage-Fahrplan für alles weitere.
+            </p>
+          </header>
+
+          <div class="bento">
+
+            <!-- A · Feature wide -->
+            <article class="bento__card bento__a">
+              <div class="bento__copy">
+                <span class="eyebrow eyebrow--card">Kern-Ergebnis</span>
+                <h3 class="bento__h">Ein KI-Setup, einsatzbereit. <em>Auf deinem Laptop.</em></h3>
+                <p class="bento__p">Konfiguriert auf dein Gewerk und deine wiederkehrenden Aufgaben. Läuft nach dem Workshop ohne Setup-Stress weiter.</p>
+              </div>
+              <div class="bento__art bento__art--surface">
+                <div class="mock-flow">
+                  <div class="mock-flow__step is-done">
+                    <span class="mock-flow__check"><svg viewBox="0 0 12 12" fill="none"><path d="M2 6l3 3 5-6" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+                    <div>
+                      <p>Anfrage eingegangen</p>
+                      <span>09:42 · k.schmitt@gmx</span>
+                    </div>
+                    <span class="mock-flow__time">12 Sek.</span>
+                  </div>
+                  <div class="mock-flow__rail"></div>
+                  <div class="mock-flow__step is-done">
+                    <span class="mock-flow__check"><svg viewBox="0 0 12 12" fill="none"><path d="M2 6l3 3 5-6" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+                    <div>
+                      <p>KI analysiert &amp; ordnet zu</p>
+                      <span>Fensterbau · Bestandsbau · Altbau</span>
+                    </div>
+                    <span class="mock-flow__time">3 Sek.</span>
+                  </div>
+                  <div class="mock-flow__rail"></div>
+                  <div class="mock-flow__step is-done">
+                    <span class="mock-flow__check"><svg viewBox="0 0 12 12" fill="none"><path d="M2 6l3 3 5-6" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+                    <div>
+                      <p>Angebot 1248-A erstellt</p>
+                      <span>12 Positionen · 14.320 € · 9,9 %</span>
+                    </div>
+                    <span class="mock-flow__time">8 Sek.</span>
+                  </div>
+                  <div class="mock-flow__rail"></div>
+                  <div class="mock-flow__step is-active">
+                    <span class="mock-flow__spin"></span>
+                    <div>
+                      <p>Wartet auf deine Freigabe</p>
+                      <span>1 Klick · wird automatisch versendet</span>
+                    </div>
+                    <span class="mock-flow__time">jetzt</span>
+                  </div>
+                </div>
+              </div>
+            </article>
+
+            <!-- B · KI-Agent (Christians Part) -->
+            <article class="bento__card bento__b">
+              <div class="bento__copy">
+                <span class="eyebrow eyebrow--card">Mit Christian</span>
+                <h3 class="bento__h">Dein erster KI&#8209;Agent. <em>Live gebaut.</em></h3>
+                <p class="bento__p">Christian zeigt seinen Roeli-Agenten. Dann baust du deinen.</p>
+              </div>
+              <div class="bento__art">
+                <div class="mock-chat">
+                  <div class="mock-chat__msg mock-chat__msg--in">
+                    <div class="mock-chat__bubble">Wann kann ich vorbeikommen für ein Aufmaß?</div>
+                  </div>
+                  <div class="mock-chat__msg mock-chat__msg--out">
+                    <div class="mock-chat__bubble mock-chat__bubble--out">Donnerstag 14:30 oder Freitag 10:00. Welcher passt?</div>
+                  </div>
+                  <div class="mock-chat__typing"><span></span><span></span><span></span></div>
+                </div>
+              </div>
+            </article>
+
+            <!-- C · Workflow library -->
+            <article class="bento__card bento__c">
+              <div class="bento__copy">
+                <span class="eyebrow eyebrow--card">Vorlagen</span>
+                <h3 class="bento__h">30+ Workflows. <em>Sofort einsetzbar.</em></h3>
+                <p class="bento__p">Im Posteingang. Ohne Programmieren, ohne Übersetzen.</p>
+              </div>
+              <div class="bento__art bento__art--surface">
+                <div class="chips">
+                  <span class="chip">Höfliche Mahnung</span>
+                  <span class="chip chip--active">Angebot Fensterbau</span>
+                  <span class="chip">Reklamation</span>
+                  <span class="chip">Termin bestätigen</span>
+                  <span class="chip">Bauleitung-Update</span>
+                  <span class="chip">Aufmaß protokollieren</span>
+                  <span class="chip chip--muted">+ 24 weitere</span>
+                </div>
+              </div>
+            </article>
+
+            <!-- D · Priority list wide -->
+            <article class="bento__card bento__d">
+              <div class="bento__copy">
+                <span class="eyebrow eyebrow--card">Priorisierung</span>
+                <h3 class="bento__h">Die wichtigsten Anwendungen. <em>Für dein Gewerk, priorisiert.</em></h3>
+                <p class="bento__p">Was sich zuerst lohnt, was warten kann, was du auslassen solltest.</p>
+              </div>
+              <div class="bento__art">
+                <ol class="ranking">
+                  <li><span class="ranking__rank">01</span><span>Angebote automatisch erstellen</span><span class="tag tag--high">Hoch</span></li>
+                  <li><span class="ranking__rank">02</span><span>Kundenmails beantworten</span><span class="tag tag--high">Hoch</span></li>
+                  <li><span class="ranking__rank">03</span><span>Aufmaßzettel digitalisieren</span><span class="tag tag--mid">Mittel</span></li>
+                  <li class="is-muted"><span class="ranking__rank">04</span><span>Reklamationen vorab filtern</span><span class="tag tag--mid">Mittel</span></li>
+                </ol>
+              </div>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <!-- ============================================================
+           PROOF · stats
+           ============================================================ -->
+      <section class="proof">
+        <div class="container">
+          <header class="section-head">
+            <span class="eyebrow">03 · Beweis</span>
+            <h2 class="section-title section-title--center">
+              Nicht Theorie. <em>Sondern Zahlen aus einem echten Fensterbaubetrieb.</em>
+            </h2>
+          </header>
+          <div class="proof__grid">
+            <div class="proof__stat">
+              <p class="proof__num"><span data-count="12">12</span> <small>h</small></p>
+              <p class="proof__label">Zeitersparnis pro Woche bei Roeli. Eine halbe Stelle.</p>
+            </div>
+            <div class="proof__stat">
+              <p class="proof__num">24<small>/7</small></p>
+              <p class="proof__label">KI-Agenten erledigen Aufgaben rund um die Uhr.</p>
+            </div>
+            <div class="proof__stat">
+              <p class="proof__num">&lt;&thinsp;<span data-count="1">1</span> <small>Mon.</small></p>
+              <p class="proof__label">Amortisationszeit für den Workshop, durchschnittlich.</p>
+            </div>
+            <div class="proof__stat">
+              <p class="proof__num"><span data-count="100">100</span><small> %</small></p>
+              <p class="proof__label">Standard-Angebote werden vorbereitet, du gibst nur frei.</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ============================================================
+           HOSTS
+           ============================================================ -->
+      <section class="hosts" id="gastgeber">
+        <div class="container">
+          <header class="section-head section-head--split">
+            <div>
+              <span class="eyebrow">04 · Gastgeber</span>
+              <h2 class="section-title">Der Praktiker. <em>Und der Experte.</em></h2>
+            </div>
+            <p class="section-lead">
+              Moritz bringt dir Claude Code bei: von der Installation bis zu komplexeren Workflows.
+              Christian zeigt aus dem Fensterbau-Alltag, wie ein laufender KI-Agent wirklich aussieht.
+              Beide an einem Tag. In einem Raum. Mit dir.
+            </p>
+          </header>
+
+          <div class="hosts__grid">
+            <article class="host">
+              <div class="host__portrait">
+                <div class="host__portrait-art host__portrait-art--lindt" aria-hidden="true"></div>
+              </div>
+              <div class="host__body">
+                <p class="host__role">KI-Agenten · Praktiker</p>
+                <h3 class="host__name">Christian Lindt</h3>
+                <p class="host__bio">
+                  Geschäftsführer der Roeli GmbH, Fensterbau in Schifferstadt mit
+                  Spezialisierung auf Bestandsbau. Fährt seit Monaten mehrere KI-Agenten
+                  im operativen Tagesgeschäft. Im Workshop führt er dich durch den
+                  Bau deines ersten Agenten.
+                </p>
+                <dl class="host__facts">
+                  <div><dt>Betrieb</dt><dd>Roeli GmbH · Fensterbau</dd></div>
+                  <div><dt>Sitz</dt><dd>Schifferstadt</dd></div>
+                  <div><dt>Im Einsatz seit</dt><dd>Sommer 2025</dd></div>
+                </dl>
+              </div>
+            </article>
+
+            <article class="host">
+              <div class="host__portrait">
+                <div class="host__portrait-art host__portrait-art--kompass" aria-hidden="true"></div>
+              </div>
+              <div class="host__body">
+                <p class="host__role">Claude Code · Experte</p>
+                <h3 class="host__name">Moritz Kompaß</h3>
+                <p class="host__bio">
+                  KI-Experte aus Österreich, eigens für den Pilot angereist.
+                  Spezialisiert auf Claude Code und KI-Workflows. Weiß, was technisch
+                  heute geht und wie man es ohne Programmierkenntnisse einsetzt.
+                </p>
+                <dl class="host__facts">
+                  <div><dt>Schwerpunkt</dt><dd>Claude Code · Workflows</dd></div>
+                  <div><dt>Reist aus</dt><dd>Österreich · für den Pilot</dd></div>
+                  <div><dt>Branchen</dt><dd>Diverse · Handwerk bis Tech</dd></div>
+                </dl>
+              </div>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <!-- ============================================================
+           SCHEDULE
+           ============================================================ -->
+      <section class="schedule" id="programm">
+        <div class="container">
+          <header class="section-head section-head--split">
+            <div>
+              <span class="eyebrow">05 · Tagesablauf</span>
+              <h2 class="section-title">10:00 <em>bis</em> 17:00</h2>
+            </div>
+            <p class="section-lead">
+              Sieben Stunden, vier Module, viel Hands-on, wenig Vortrag.
+              Jeder Schritt baut auf dem vorigen auf. Am Ende läuft Claude Code
+              auf deinem Laptop, inklusive deinem ersten Agenten.
+            </p>
+          </header>
+
+          <div class="schedule__notice">
+            <span class="schedule__notice-icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none"><rect x="5" y="11" width="14" height="9" rx="1.6" stroke="currentColor" stroke-width="1.5"/><path d="M8 11V7a4 4 0 0 1 8 0v4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+            </span>
+            <div>
+              <p class="schedule__notice-title">Inhalte werden auf die acht Teilnehmer angepasst.</p>
+              <p class="schedule__notice-text">
+                Nach deiner Buchung erhältst du ein kurzes Formular zur Auswahl deiner Schwerpunkte.
+                Christian und Moritz richten den Workshop-Tag dann auf die teilnehmenden Betriebe aus.
+              </p>
+            </div>
+          </div>
+
+          <ol class="timeline">
+            <li class="timeline__row">
+              <span class="timeline__time"><span class="num">10:00</span><span class="num num--end">bis 10:30</span></span>
+              <span class="timeline__tag">Setup</span>
+              <div>
+                <h3>Ankommen, Kaffee, Setup-Check</h3>
+                <p>Begrüßung, kurze Vorstellungsrunde, Laptop-Check.</p>
+              </div>
+            </li>
+            <li class="timeline__row timeline__row--locked">
+              <span class="timeline__time"><span class="num">10:30</span><span class="num num--end">bis 11:30</span></span>
+              <span class="timeline__tag">Modul 01 · Moritz</span>
+              <div>
+                <h3>Was Claude Code wirklich kann <em>(und was nicht)</em></h3>
+                <p>Live-Demo aus dem Roeli-Alltag · ChatGPT vs. Claude Code vs. echter Agent · Mythen, Datenschutz, Kosten.</p>
+                <span class="timeline__lock" aria-hidden="true">
+                  <svg viewBox="0 0 16 16" fill="none"><rect x="3.5" y="7.5" width="9" height="6" rx="1" stroke="currentColor" stroke-width="1.2"/><path d="M5.5 7.5V5a2.5 2.5 0 0 1 5 0v2.5" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/></svg>
+                  Inhalt wird auf Teilnehmer angepasst
+                </span>
+              </div>
+            </li>
+            <li class="timeline__row timeline__row--locked">
+              <span class="timeline__time"><span class="num">11:30</span><span class="num num--end">bis 12:30</span></span>
+              <span class="timeline__tag">Modul 02 · Moritz</span>
+              <div>
+                <h3>Claude Code auf deinem Laptop installieren</h3>
+                <p>Gemeinsame Installation, Konten anlegen, erste Workflows. Mac und Windows. Jeder hat am Ende eine funktionierende Basis.</p>
+                <span class="timeline__lock" aria-hidden="true">
+                  <svg viewBox="0 0 16 16" fill="none"><rect x="3.5" y="7.5" width="9" height="6" rx="1" stroke="currentColor" stroke-width="1.2"/><path d="M5.5 7.5V5a2.5 2.5 0 0 1 5 0v2.5" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/></svg>
+                  Inhalt wird auf Teilnehmer angepasst
+                </span>
+              </div>
+            </li>
+            <li class="timeline__row timeline__row--break">
+              <span class="timeline__time"><span class="num">12:30</span><span class="num num--end">bis 13:30</span></span>
+              <span class="timeline__tag">Pause</span>
+              <div>
+                <h3>Mittagspause &amp; Networking</h3>
+                <p>Gemeinsames Essen · Erfahrungsaustausch zwischen Gewerken.</p>
+              </div>
+            </li>
+            <li class="timeline__row timeline__row--locked">
+              <span class="timeline__time"><span class="num">13:30</span><span class="num num--end">bis 15:00</span></span>
+              <span class="timeline__tag">Modul 03 · Christian</span>
+              <div>
+                <h3>Dein erster KI-Agent <em>(Hands-on)</em></h3>
+                <p>Christian zeigt seinen Agenten aus dem Fensterbau, dann bauen wir deinen, auf deinen Betrieb zugeschnitten. Individuelle Betreuung am Platz.</p>
+                <span class="timeline__lock" aria-hidden="true">
+                  <svg viewBox="0 0 16 16" fill="none"><rect x="3.5" y="7.5" width="9" height="6" rx="1" stroke="currentColor" stroke-width="1.2"/><path d="M5.5 7.5V5a2.5 2.5 0 0 1 5 0v2.5" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/></svg>
+                  Inhalt wird auf Teilnehmer angepasst
+                </span>
+              </div>
+            </li>
+            <li class="timeline__row timeline__row--break">
+              <span class="timeline__time"><span class="num">15:00</span><span class="num num--end">bis 15:15</span></span>
+              <span class="timeline__tag">Pause</span>
+              <div>
+                <h3>Kaffee &amp; Luft holen</h3>
+                <p>Kurzer Reset vor dem intensiveren zweiten Teil.</p>
+              </div>
+            </li>
+            <li class="timeline__row timeline__row--locked">
+              <span class="timeline__time"><span class="num">15:15</span><span class="num num--end">bis 16:30</span></span>
+              <span class="timeline__tag">Modul 04 · Beide</span>
+              <div>
+                <h3>Komplexere Claude-Code-Workflows</h3>
+                <p>Automatische Angebote · Reklamationsmanagement · Ausschreibungen · Aufmaßzettel digitalisieren · Q&amp;A aus dem Roeli-Alltag.</p>
+                <span class="timeline__lock" aria-hidden="true">
+                  <svg viewBox="0 0 16 16" fill="none"><rect x="3.5" y="7.5" width="9" height="6" rx="1" stroke="currentColor" stroke-width="1.2"/><path d="M5.5 7.5V5a2.5 2.5 0 0 1 5 0v2.5" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/></svg>
+                  Inhalt wird auf Teilnehmer angepasst
+                </span>
+              </div>
+            </li>
+            <li class="timeline__row">
+              <span class="timeline__time"><span class="num">16:30</span><span class="num num--end">bis 17:00</span></span>
+              <span class="timeline__tag">Abschluss</span>
+              <div>
+                <h3>Dein 30-Tage-Fahrplan</h3>
+                <p>Wie geht's weiter? Community-Zugang. Optional: 1:1-Folgetermin in 4 Wochen.</p>
+              </div>
+            </li>
+          </ol>
+        </div>
+      </section>
+
+      <!-- ============================================================
+           AUDIENCE
+           ============================================================ -->
+      <section class="audience">
+        <div class="container">
+          <header class="section-head section-head--split">
+            <div>
+              <span class="eyebrow">06 · Für wen</span>
+              <h2 class="section-title">Bewusst klein. <em>Bewusst spezifisch.</em></h2>
+            </div>
+            <p class="section-lead">
+              Damit du nicht in einem Raum mit Online-Coaches und Immobilienmaklern sitzt.
+              Sondern mit Leuten, die deine Sprache sprechen.
+            </p>
+          </header>
+
+          <div class="audience__grid">
+            <div class="audience__card">
+              <span class="audience__label">Für dich, wenn …</span>
+              <ul class="audience__list">
+                <li>du einen Handwerksbetrieb mit 3–30 Mitarbeitern führst</li>
+                <li>du in der Region Speyer · Mannheim · Heidelberg · Rhein-Neckar bist</li>
+                <li>dein Gewerk Fensterbau, Schreinerei, Sanitär/Heizung, Elektro, Maler, Dachdecker, GaLaBau, Bodenleger, Stuckateur o.&nbsp;Ä. ist</li>
+                <li>du Claude Code bisher nur aus den Nachrichten kennst</li>
+                <li>du wirklich umsetzen willst, nicht nur „mal reinhören“</li>
+              </ul>
+            </div>
+            <div class="audience__card audience__card--muted">
+              <span class="audience__label audience__label--muted">Nicht für dich, wenn …</span>
+              <ul class="audience__list audience__list--muted">
+                <li>du bereits routiniert mit Claude Code, n8n oder eigenen Skripten arbeitest</li>
+                <li>du in einem Konzern oder Großbetrieb mit IT-Abteilung sitzt</li>
+                <li>du Berater, Agentur-Inhaber oder Coach bist</li>
+                <li>du nur „mal reinschnuppern“ willst</li>
+                <li>du nicht bereit bist, deinen Laptop mitzubringen</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ============================================================
+           PRICING
+           ============================================================ -->
+      <section class="pricing" id="preis">
+        <div class="container">
+          <header class="section-head">
+            <span class="eyebrow">07 · Investition</span>
+            <h2 class="section-title section-title--center">
+              Ein KI-Mitarbeiter ersetzt mindestens eine halbe Stelle. <em>Du rechnest selbst.</em>
+            </h2>
+          </header>
+
+          <div class="price" id="buchen">
+            <div class="price__inner">
+              <div class="price__top">
+                <div>
+                  <span class="eyebrow eyebrow--card">Workshop-Tag · Pilot No. 01</span>
+                  <h3 class="price__name">Werkstatt KI <em>Vor-Ort-Tag</em></h3>
+                </div>
+                <div class="price__amount">
+                  <span class="price__earlybird">Early Bird Preis</span>
+                  <p class="price__num">497&thinsp;<small>€</small></p>
+                  <span class="price__reg">regulär 799&thinsp;€ netto</span>
+                </div>
+              </div>
+
+              <div class="price__split">
+                <ul class="price__list">
+                  <li>7 Stunden Vor-Ort-Workshop in der Region Speyer</li>
+                  <li>Max. 8 Teilnehmer · viel Zeit pro Person</li>
+                  <li>Claude Code installiert &amp; konfiguriert auf deinem Laptop</li>
+                  <li>Dein erster KI-Agent, gebaut mit Christian</li>
+                  <li>30+ Claude-Code-Workflows speziell für Handwerker</li>
+                  <li>Workshop-Handout · gedruckt &amp; digital</li>
+                  <li>Aufzeichnung der Live-Demos zum Nachschauen</li>
+                  <li>Zugang zur geschlossenen Teilnehmer-Community</li>
+                  <li>Verpflegung: Getränke, Mittagessen, Kaffee, Snacks</li>
+                </ul>
+
+                <div class="price__cta">
+                  <a href="#kontakt" class="btn btn--pill btn--lg btn--solid btn--block">
+                    <span>Platz sichern</span>
+                    <span class="btn__icon" aria-hidden="true">
+                      <svg viewBox="0 0 16 16" fill="none"><path d="M5 11l6-6M6 5h5v5" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                    </span>
+                  </a>
+                  <p class="price__trust">Zahlung per Rechnung · Storno bis 14 Tage vor Termin · Veranstalter: Roeli GmbH</p>
+                </div>
+              </div>
+
+              <div class="price__addons">
+                <span class="eyebrow eyebrow--card">Optional dazu</span>
+                <ul>
+                  <li>
+                    <div><h4>1:1-Folgetermin</h4><p>90 Min · vor Ort oder remote, innerhalb von 4 Wochen.</p></div>
+                    <span>+ 297&thinsp;€</span>
+                  </li>
+                  <li>
+                    <div><h4>Claude-Code-Sprechstunde</h4><p>Quartalsweise · 4 Termine à 60 Min für die nächsten 12 Monate.</p></div>
+                    <span>+ 497&thinsp;€</span>
+                  </li>
+                  <li>
+                    <div><h4>Komplett-Setup</h4><p>Wir bauen das gesamte Claude-Code-Setup inkl. Agenten für deinen Betrieb.</p></div>
+                    <span>auf Anfrage</span>
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ============================================================
+           FAQ
+           ============================================================ -->
+      <section class="faq" id="faq">
+        <div class="container">
+          <header class="section-head section-head--split">
+            <div>
+              <span class="eyebrow">08 · Häufige Fragen</span>
+              <h2 class="section-title">Was du <em>als nächstes</em> wissen willst.</h2>
+            </div>
+            <p class="section-lead">
+              Wenn deine Frage nicht dabei ist, antwortet Christian direkt.
+              Kein Callcenter, keine Schleifen.
+            </p>
+          </header>
+
+          <dl class="faq__grid">
+            <div class="faq__item">
+              <dt>Was ist Claude Code überhaupt?</dt>
+              <dd>Claude Code ist eine Software von Anthropic, die direkt auf deinem Laptop läuft. Du sagst ihr in normalem Deutsch, was zu tun ist, und sie erledigt es: Mails schreiben, Angebote erstellen, Dokumente sortieren, Agenten bauen. Kein Programmieren nötig.</dd>
+            </div>
+            <div class="faq__item">
+              <dt>Brauche ich Vorwissen?</dt>
+              <dd>Nein. Wenn du E-Mails schreiben und einen Browser öffnen kannst, reicht das. Wir holen jeden bei Null ab.</dd>
+            </div>
+            <div class="faq__item">
+              <dt>Mac oder Windows?</dt>
+              <dd>Beides. Wir haben das Claude-Code-Setup für beide Betriebssysteme vorbereitet und betreuen dich individuell.</dd>
+            </div>
+            <div class="faq__item">
+              <dt>Was kostet Claude Code danach monatlich?</dt>
+              <dd>Für die meisten Setups 20 bis 50&nbsp;€ pro Monat. Wir besprechen das transparent und zeigen, wo es sich zahlt.</dd>
+            </div>
+            <div class="faq__item">
+              <dt>Sind meine Kundendaten sicher?</dt>
+              <dd>Wir behandeln das in Modul 1 ausführlich: was Anthropic mit deinen Daten macht, wie du sensible Inhalte anonymisierst und was du wo speichern darfst.</dd>
+            </div>
+            <div class="faq__item">
+              <dt>Kann ich zu zweit kommen?</dt>
+              <dd>Ja. Wer jemanden aus dem Betrieb mitbringt (Sohn, Bürokraft, Vorarbeiter), bekommt für beide je 200&nbsp;€ Rabatt.</dd>
+            </div>
+            <div class="faq__item">
+              <dt>Was, wenn ich's nicht hinbekomme?</dt>
+              <dd>Du gehst nicht raus, ohne dass Claude Code läuft. Falls das wider Erwarten passiert, gibt's einen kostenlosen 1:1-Folgetermin, bis es läuft.</dd>
+            </div>
+            <div class="faq__item">
+              <dt>Warum Claude Code und nicht ChatGPT?</dt>
+              <dd>ChatGPT chattet, Claude Code arbeitet. Es liest deine Dateien, schreibt Angebote in Word, beantwortet Mails in deinem Postfach, baut Agenten. Was Christian täglich nutzt, lernst du an dem Tag.</dd>
+            </div>
+          </dl>
+        </div>
+      </section>
+
+      <!-- ============================================================
+           FINAL CTA
+           ============================================================ -->
+      <section class="cta" id="kontakt">
+        <div class="container">
+          <div class="cta__bezel">
+            <div class="cta__inner">
+              <span class="eyebrow">Pilot No. 01 · Region Speyer</span>
+              <h2 class="cta__headline">
+                Acht Plätze. <em>Einer davon ist deiner, wenn du jetzt reagierst.</em>
+              </h2>
+              <form class="cta__form" id="form" novalidate>
+                <div class="field">
+                  <label for="name">Dein Name</label>
+                  <input id="name" name="name" type="text" autocomplete="name" required />
+                </div>
+                <div class="field">
+                  <label for="firma">Firma · Gewerk</label>
+                  <input id="firma" name="firma" type="text" autocomplete="organization" required />
+                </div>
+                <div class="field">
+                  <label for="mail">E-Mail</label>
+                  <input id="mail" name="mail" type="email" autocomplete="email" required />
+                </div>
+                <div class="field">
+                  <label for="tel">Telefon</label>
+                  <input id="tel" name="tel" type="tel" autocomplete="tel" />
+                </div>
+                <div class="field field--wide">
+                  <label for="notiz">Worauf brennst du am meisten? <span class="optional">(optional)</span></label>
+                  <textarea id="notiz" name="notiz" rows="2"></textarea>
+                </div>
+                <div class="field field--submit">
+                  <button type="submit" class="btn btn--pill btn--lg btn--solid btn--block">
+                    <span>Platz unverbindlich anfragen</span>
+                    <span class="btn__icon" aria-hidden="true">
+                      <svg viewBox="0 0 16 16" fill="none"><path d="M5 11l6-6M6 5h5v5" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                    </span>
+                  </button>
+                  <p class="cta__note">Wir melden uns persönlich innerhalb von 24&nbsp;Stunden. Keine automatischen Mails. Kein Spam.</p>
+                </div>
+              </form>
+              <p class="cta__success" id="form-success" hidden>
+                Danke. Wir melden uns innerhalb von 24&nbsp;Stunden persönlich.
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer class="footer">
+      <div class="container footer__inner">
+        <div class="footer__brand">
+          <svg class="nav__mark" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+            <path d="M4 20L12 4l8 16M8 20l4-8 4 8" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+          <span>Werkstatt&nbsp;KI</span>
+        </div>
+        <p class="footer__copy">© 2026 · Pilot-Workshop in Kooperation mit Roeli GmbH (Schifferstadt) und Moritz Kompaß.</p>
+        <nav class="footer__links" aria-label="Rechtliches">
+          <a href="#">Impressum</a>
+          <a href="#">Datenschutz</a>
+          <a href="#">AGB</a>
+        </nav>
+      </div>
+    </footer>
+
+    <script src="script.js"></script>
+  </body>
+</html>
