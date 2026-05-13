@@ -1,0 +1,410 @@
+<!doctype html>
+<html lang="de">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <title>Verbindlich buchen · Werkstatt KI</title>
+    <meta name="description" content="Verbindliche Buchung des Claude Code Workshops. Rechnung wird per E-Mail zugestellt." />
+    <meta name="theme-color" content="#FBFBFD" />
+    <link rel="canonical" href="https://claude-workshop.de/buchung.html" />
+    <meta name="robots" content="noindex, follow" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Geist:wght@300;400;500;600;700&family=Geist+Mono:wght@400;500&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="styles.css" />
+    <link rel="stylesheet" href="buchung.css" />
+  </head>
+  <body class="page-buchung">
+    <a class="skip" href="#main">Zum Inhalt springen</a>
+
+    <header class="nav" id="nav">
+      <a class="nav__brand" href="/" aria-label="Werkstatt KI – Startseite">
+        <svg class="nav__mark" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+          <path d="M4 20L12 4l8 16M8 20l4-8 4 8" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+        <span>Werkstatt&nbsp;KI</span>
+      </a>
+      <nav class="nav__links" aria-label="Hauptnavigation">
+        <a href="/#programm">Programm</a>
+        <a href="/#gastgeber">Gastgeber</a>
+        <a href="/#preis">Preis</a>
+        <a href="/#faq">FAQ</a>
+      </nav>
+      <a href="/" class="btn btn--pill">
+        <span>Zurück zur Übersicht</span>
+        <span class="btn__icon" aria-hidden="true">
+          <svg viewBox="0 0 16 16" fill="none"><path d="M11 11L5 5M10 5H5v5" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </span>
+      </a>
+    </header>
+
+    <main id="main" class="checkout">
+      <div class="checkout__container">
+        <header class="checkout__head">
+          <span class="eyebrow">
+            <span class="eyebrow__dot" aria-hidden="true"></span>
+            Verbindliche Buchung · Pilot No. 01
+          </span>
+          <h1 class="checkout__h1">Platz sichern.</h1>
+          <p class="checkout__sub">Die Buchung ist verbindlich. Die Rechnung erhältst du innerhalb von 24 Stunden per E-Mail.</p>
+        </header>
+
+        <div class="checkout__grid">
+          <!-- ============ FORM ============ -->
+          <form class="checkout__form" id="form" novalidate>
+            <section class="form-section">
+              <div class="form-section__head">
+                <span class="form-section__num">01</span>
+                <h2 class="form-section__title">Wer bucht?</h2>
+              </div>
+              <div class="form-row form-row--2">
+                <div class="field">
+                  <label for="vorname">Vorname</label>
+                  <input id="vorname" name="vorname" type="text" autocomplete="given-name" required />
+                </div>
+                <div class="field">
+                  <label for="nachname">Nachname</label>
+                  <input id="nachname" name="nachname" type="text" autocomplete="family-name" required />
+                </div>
+              </div>
+              <div class="form-row form-row--2">
+                <div class="field">
+                  <label for="firma">Firma <span class="optional">(optional)</span></label>
+                  <input id="firma" name="firma" type="text" autocomplete="organization" />
+                </div>
+                <div class="field">
+                  <label for="gewerk">Gewerk <span class="optional">(optional)</span></label>
+                  <input id="gewerk" name="gewerk" type="text" placeholder="z. B. Fensterbau, Elektro" />
+                </div>
+              </div>
+            </section>
+
+            <section class="form-section">
+              <div class="form-section__head">
+                <span class="form-section__num">02</span>
+                <h2 class="form-section__title">Rechnungsadresse</h2>
+              </div>
+              <div class="field">
+                <label for="strasse">Straße &amp; Hausnummer</label>
+                <input id="strasse" name="strasse" type="text" autocomplete="street-address" required />
+              </div>
+              <div class="form-row form-row--plz-ort">
+                <div class="field">
+                  <label for="plz">PLZ</label>
+                  <input id="plz" name="plz" type="text" inputmode="numeric" autocomplete="postal-code" required />
+                </div>
+                <div class="field">
+                  <label for="ort">Ort</label>
+                  <input id="ort" name="ort" type="text" autocomplete="address-level2" required />
+                </div>
+              </div>
+              <div class="form-row form-row--2">
+                <div class="field">
+                  <label for="land">Land</label>
+                  <input id="land" name="land" type="text" autocomplete="country-name" value="Deutschland" required />
+                </div>
+                <div class="field">
+                  <label for="ust_id">USt-IdNr. <span class="optional">(falls vorhanden)</span></label>
+                  <input id="ust_id" name="ust_id" type="text" placeholder="DE…" />
+                </div>
+              </div>
+            </section>
+
+            <section class="form-section">
+              <div class="form-section__head">
+                <span class="form-section__num">03</span>
+                <h2 class="form-section__title">So erreichen wir dich</h2>
+              </div>
+              <div class="form-row form-row--2">
+                <div class="field">
+                  <label for="email">E-Mail <span class="hint">(für Rechnung und Bestätigung)</span></label>
+                  <input id="email" name="email" type="email" autocomplete="email" required />
+                </div>
+                <div class="field">
+                  <label for="telefon">Telefon <span class="optional">(optional)</span></label>
+                  <input id="telefon" name="telefon" type="tel" autocomplete="tel" />
+                </div>
+              </div>
+              <div class="field">
+                <label for="notiz">Anmerkungen <span class="optional">(optional)</span></label>
+                <textarea id="notiz" name="notiz" rows="3" placeholder="Worauf brennst du am meisten? Was wäre ein klarer Erfolg für deinen Tag?"></textarea>
+              </div>
+            </section>
+
+            <!-- Honeypot — hidden from humans, visible to bots -->
+            <div class="hp" aria-hidden="true">
+              <label for="website">Website</label>
+              <input id="website" name="website" type="text" tabindex="-1" autocomplete="off" />
+            </div>
+
+            <section class="form-section form-section--legal">
+              <div class="form-section__head">
+                <span class="form-section__num">04</span>
+                <h2 class="form-section__title">Verbindlichkeit</h2>
+              </div>
+              <label class="check">
+                <input type="checkbox" id="binding_accepted" name="binding_accepted" required />
+                <span class="check__mark" aria-hidden="true">
+                  <svg viewBox="0 0 12 12" fill="none"><path d="M2 6l3 3 5-6" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                </span>
+                <span class="check__text">
+                  <strong>Ich buche verbindlich.</strong> Mit dem Absenden gebe ich eine zahlungspflichtige Bestellung ab. Die Rechnung wird per E-Mail zugestellt und ist innerhalb von 14 Tagen zu begleichen.
+                </span>
+              </label>
+              <label class="check">
+                <input type="checkbox" id="agb_accepted" name="agb_accepted" required />
+                <span class="check__mark" aria-hidden="true">
+                  <svg viewBox="0 0 12 12" fill="none"><path d="M2 6l3 3 5-6" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                </span>
+                <span class="check__text">
+                  Ich akzeptiere die <a href="/agb.html" target="_blank" rel="noopener">AGB</a> und die <a href="/storno.html" target="_blank" rel="noopener">Stornobedingungen</a>.
+                </span>
+              </label>
+              <label class="check">
+                <input type="checkbox" id="privacy_accepted" name="privacy_accepted" required />
+                <span class="check__mark" aria-hidden="true">
+                  <svg viewBox="0 0 12 12" fill="none"><path d="M2 6l3 3 5-6" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                </span>
+                <span class="check__text">
+                  Ich habe die <a href="/datenschutz.html" target="_blank" rel="noopener">Datenschutzerklärung</a> gelesen und stimme der Verarbeitung meiner Daten zur Vertragsabwicklung zu.
+                </span>
+              </label>
+            </section>
+
+            <div class="form-submit">
+              <button type="submit" class="btn btn--pill btn--lg btn--solid btn--block" id="submit-btn">
+                <span>Verbindlich buchen · 497 € netto</span>
+                <span class="btn__icon" aria-hidden="true">
+                  <svg viewBox="0 0 16 16" fill="none"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                </span>
+              </button>
+              <p class="form-submit__note">Sichere Übertragung · Rechnung folgt per E-Mail · Storno bis 14 Tage vor Termin</p>
+              <p class="form-error" id="form-error" hidden></p>
+            </div>
+          </form>
+
+          <!-- ============ SIDEBAR ============ -->
+          <aside class="checkout__aside">
+            <div class="summary">
+              <span class="eyebrow eyebrow--card">Deine Buchung</span>
+              <h3 class="summary__name">Werkstatt KI<br/>Vor-Ort-Tag</h3>
+              <ul class="summary__list">
+                <li>7 Stunden Vor-Ort-Workshop</li>
+                <li>Max. 8 Teilnehmer</li>
+                <li>KI-Setup auf deinem Laptop</li>
+                <li>Erster KI-Agent, gebaut mit Christian</li>
+                <li>30+ Workflows für Handwerker</li>
+                <li>Verpflegung inklusive</li>
+              </ul>
+              <div class="summary__price">
+                <div class="summary__line">
+                  <span>Workshop-Tag</span>
+                  <span><s>799&thinsp;€</s></span>
+                </div>
+                <div class="summary__line summary__line--accent">
+                  <span>Early Bird</span>
+                  <span>497&thinsp;€</span>
+                </div>
+                <div class="summary__line summary__line--total">
+                  <span>Gesamt netto</span>
+                  <span>497&thinsp;€</span>
+                </div>
+                <p class="summary__vat">zzgl. 19 % USt. · Rechnung per Mail</p>
+              </div>
+            </div>
+
+            <div class="trust">
+              <div class="trust__row">
+                <span class="trust__icon" aria-hidden="true">
+                  <svg viewBox="0 0 24 24" fill="none"><rect x="5" y="11" width="14" height="9" rx="1.6" stroke="currentColor" stroke-width="1.5"/><path d="M8 11V7a4 4 0 0 1 8 0v4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+                </span>
+                <p>Verschlüsselte Übertragung. Keine Daten an Dritte.</p>
+              </div>
+              <div class="trust__row">
+                <span class="trust__icon" aria-hidden="true">
+                  <svg viewBox="0 0 24 24" fill="none"><path d="M12 3l8 4v5c0 5-3.5 8-8 9-4.5-1-8-4-8-9V7l8-4z" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/><path d="M9 12l2 2 4-4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                </span>
+                <p>Rechnung von Roeli GmbH · zahlbar in 14 Tagen.</p>
+              </div>
+              <div class="trust__row">
+                <span class="trust__icon" aria-hidden="true">
+                  <svg viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="9" stroke="currentColor" stroke-width="1.5"/><path d="M12 7v5l3 2" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+                </span>
+                <p>Storno kostenfrei bis 14 Tage vor Workshop.</p>
+              </div>
+            </div>
+          </aside>
+        </div>
+      </div>
+
+      <!-- Success view -->
+      <div class="success" id="success" hidden>
+        <div class="success__inner">
+          <span class="success__icon" aria-hidden="true">
+            <svg viewBox="0 0 32 32" fill="none"><circle cx="16" cy="16" r="14" stroke="currentColor" stroke-width="1.5"/><path d="M10 16l4 4 8-9" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </span>
+          <h2 class="success__h">Buchung bestätigt.</h2>
+          <p class="success__p" id="success-text">
+            Vielen Dank. Wir haben dir gerade eine Bestätigung an deine E-Mail-Adresse geschickt.
+            Die Rechnung folgt innerhalb von 24 Stunden.
+          </p>
+          <a href="/" class="btn btn--pill btn--lg btn--solid">
+            <span>Zurück zur Startseite</span>
+            <span class="btn__icon" aria-hidden="true">
+              <svg viewBox="0 0 16 16" fill="none"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </span>
+          </a>
+        </div>
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="container footer__inner">
+        <div class="footer__brand">
+          <svg class="nav__mark" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+            <path d="M4 20L12 4l8 16M8 20l4-8 4 8" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+          <span>Werkstatt&nbsp;KI</span>
+        </div>
+        <p class="footer__copy">© 2026 · Pilot-Workshop in Kooperation mit Roeli GmbH und Moritz Kompaß.</p>
+        <nav class="footer__links" aria-label="Rechtliches">
+          <a href="/impressum.html">Impressum</a>
+          <a href="/datenschutz.html">Datenschutz</a>
+          <a href="/agb.html">AGB</a>
+        </nav>
+      </div>
+    </footer>
+
+    <script>
+      (() => {
+        const SUPABASE_URL = "https://lwjyhsdlqpohnttxoacr.supabase.co";
+        const ANON_KEY = "sb_publishable_-sw0ILD0ylo-80wuhNXTLg_Z38uX1R0";
+        const ENDPOINT = `${SUPABASE_URL}/functions/v1/book-workshop`;
+
+        const form = document.getElementById("form");
+        const errorEl = document.getElementById("form-error");
+        const submitBtn = document.getElementById("submit-btn");
+        const successView = document.getElementById("success");
+
+        const showError = (msg) => {
+          errorEl.textContent = msg;
+          errorEl.hidden = false;
+          errorEl.scrollIntoView({ behavior: "smooth", block: "center" });
+        };
+
+        const clearError = () => {
+          errorEl.hidden = true;
+          errorEl.textContent = "";
+        };
+
+        const validate = () => {
+          let firstInvalid = null;
+          form.querySelectorAll("input, textarea").forEach((el) => {
+            el.style.borderColor = "";
+            const isCheck = el.type === "checkbox";
+            const isReq = el.required;
+            const empty = isCheck ? !el.checked : !el.value.trim();
+            const badEmail =
+              el.type === "email" && el.value && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(el.value);
+            if ((isReq && empty) || badEmail) {
+              el.style.borderColor = "rgba(255, 99, 71, 0.7)";
+              if (!firstInvalid) firstInvalid = el;
+            }
+          });
+          if (firstInvalid) {
+            firstInvalid.focus();
+            firstInvalid.scrollIntoView({ behavior: "smooth", block: "center" });
+            showError("Bitte fülle die markierten Felder aus.");
+            return false;
+          }
+          clearError();
+          return true;
+        };
+
+        form.addEventListener("submit", async (e) => {
+          e.preventDefault();
+          if (!validate()) return;
+
+          const fd = new FormData(form);
+          const payload = {
+            vorname: fd.get("vorname"),
+            nachname: fd.get("nachname"),
+            firma: fd.get("firma"),
+            gewerk: fd.get("gewerk"),
+            strasse: fd.get("strasse"),
+            plz: fd.get("plz"),
+            ort: fd.get("ort"),
+            land: fd.get("land") || "Deutschland",
+            ust_id: fd.get("ust_id"),
+            email: fd.get("email"),
+            telefon: fd.get("telefon"),
+            notiz: fd.get("notiz"),
+            agb_accepted: fd.get("agb_accepted") === "on",
+            binding_accepted: fd.get("binding_accepted") === "on",
+            privacy_accepted: fd.get("privacy_accepted") === "on",
+            website: fd.get("website"),
+          };
+
+          submitBtn.disabled = true;
+          submitBtn.setAttribute("data-loading", "true");
+
+          try {
+            const res = await fetch(ENDPOINT, {
+              method: "POST",
+              headers: {
+                "Content-Type": "application/json",
+                "apikey": ANON_KEY,
+                "Authorization": `Bearer ${ANON_KEY}`,
+              },
+              body: JSON.stringify(payload),
+            });
+            const data = await res.json();
+            if (!res.ok || !data.ok) {
+              const msg =
+                data.error === "invalid_email"
+                  ? "Die E-Mail-Adresse ist ungültig."
+                  : data.error === "acceptance_required"
+                  ? "Bitte bestätige alle drei Punkte zur Verbindlichkeit."
+                  : "Die Buchung konnte nicht abgeschickt werden. Bitte versuche es erneut oder kontaktiere uns direkt.";
+              showError(msg);
+              submitBtn.disabled = false;
+              submitBtn.removeAttribute("data-loading");
+              return;
+            }
+            form.style.display = "none";
+            document.querySelector(".checkout__aside").style.display = "none";
+            document.querySelector(".checkout__head").style.display = "none";
+            successView.hidden = false;
+            window.scrollTo({ top: 0, behavior: "smooth" });
+          } catch (err) {
+            console.error(err);
+            showError("Verbindungsfehler. Bitte erneut versuchen oder uns direkt kontaktieren.");
+            submitBtn.disabled = false;
+            submitBtn.removeAttribute("data-loading");
+          }
+        });
+
+        // Clear field error on input
+        form.querySelectorAll("input, textarea").forEach((el) => {
+          el.addEventListener("input", () => {
+            el.style.borderColor = "";
+            clearError();
+          });
+          el.addEventListener("change", () => {
+            el.style.borderColor = "";
+            clearError();
+          });
+        });
+
+        // Nav scroll state
+        const nav = document.getElementById("nav");
+        const onScroll = () => nav.classList.toggle("is-scrolled", window.scrollY > 16);
+        window.addEventListener("scroll", onScroll, { passive: true });
+        onScroll();
+      })();
+    </script>
+  </body>
+</html>
