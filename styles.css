@@ -259,8 +259,24 @@ h1, h2, h3, h4 {
 }
 .nav .btn--pill:hover { background: var(--ink-2); }
 @media (max-width: 760px) {
-  .nav { padding: 6px 6px 6px 16px; gap: 8px; }
+  .nav {
+    left: 16px;
+    right: 16px;
+    transform: none;
+    padding: 10px 10px 10px 22px;
+    gap: 16px;
+    justify-content: space-between;
+  }
   .nav__links { display: none; }
+  .nav__brand { font-size: 15px; }
+  .nav .btn--pill {
+    padding: 9px 12px 9px 18px;
+    font-size: 13px;
+  }
+  .nav .btn--pill .btn__icon {
+    width: 22px;
+    height: 22px;
+  }
 }
 
 /* ============================================================
@@ -1144,22 +1160,18 @@ section { position: relative; }
   position: absolute; inset: 0;
 }
 .host__portrait-art--lindt {
-  background:
-    radial-gradient(circle at 30% 28%, rgba(0,0,0,0.04) 0%, transparent 60%),
-    linear-gradient(135deg, #ebebef 0%, #c8c8cc 60%, #86868b 100%);
+  background-color: #1c1e22;
+  background-image: url("/assets/christian.jpg");
+  background-size: cover;
+  background-position: center 30%;
+  background-repeat: no-repeat;
 }
 .host__portrait-art--kompass {
-  background:
-    radial-gradient(circle at 70% 30%, rgba(0,0,0,0.06) 0%, transparent 55%),
-    linear-gradient(135deg, #e6e9ec 0%, #b8bcc1 55%, #6b6f74 100%);
-}
-.host__portrait::after {
-  content: "";
-  position: absolute; inset: 0;
-  background:
-    radial-gradient(circle at 35% 38%, rgba(0,0,0,0.12) 0%, transparent 35%);
-  mix-blend-mode: multiply;
-  pointer-events: none;
+  background-color: #e6e9ec;
+  background-image: url("/assets/moritz.jpg");
+  background-size: cover;
+  background-position: center 25%;
+  background-repeat: no-repeat;
 }
 .host__body {
   padding: clamp(28px, 3vw, 40px);
