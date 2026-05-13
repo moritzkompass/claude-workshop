@@ -2,7 +2,7 @@
 <html lang="de">
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Admin · Claude Workshop</title>
     <meta name="robots" content="noindex, nofollow" />
     <meta name="theme-color" content="#FBFBFD" />
@@ -16,154 +16,121 @@
     <link rel="stylesheet" href="admin.css" />
   </head>
   <body class="page-admin">
-    <header class="admin-nav" id="nav">
-      <a class="nav__brand" href="/">
-        <svg class="nav__mark" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-          <path d="M4 20L12 4l8 16M8 20l4-8 4 8" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/>
-        </svg>
-        <span>Claude Workshop</span>
-        <span class="admin-nav__badge">Admin</span>
-      </a>
-      <div class="admin-nav__right">
-        <span class="admin-nav__user" id="userEmail" hidden></span>
-        <button type="button" class="btn btn--pill btn--sm" id="logoutBtn" hidden>
-          <span>Abmelden</span>
-        </button>
+    <!-- ==================== LOGIN OVERLAY ==================== -->
+    <div class="login-overlay" id="loginOverlay">
+      <div class="login-card">
+        <div class="login-brand">
+          <span class="login-label">Admin</span>
+          <span class="login-name">Claude Workshop</span>
+        </div>
+        <h2>Willkommen zurück.</h2>
+        <p>Melde dich an, um zum Dashboard zu gelangen.</p>
+        <form id="loginForm" autocomplete="on">
+          <div class="login-field">
+            <label for="loginEmail">E-Mail</label>
+            <input id="loginEmail" type="email" autocomplete="email" required />
+          </div>
+          <div class="login-field">
+            <label for="loginPassword">Passwort</label>
+            <input id="loginPassword" type="password" autocomplete="current-password" required />
+          </div>
+          <div class="login-error" id="loginError"></div>
+          <div class="login-success" id="loginSuccess" hidden></div>
+          <button type="submit" class="login-btn" id="loginBtn">Anmelden</button>
+          <button type="button" class="login-link" id="forgotBtn">Passwort vergessen?</button>
+        </form>
       </div>
-    </header>
+    </div>
 
-    <main id="main">
-      <!-- ============ AUTH VIEW ============ -->
-      <section class="auth" id="authView">
-        <div class="auth__card">
-          <span class="eyebrow">
-            <span class="eyebrow__dot" aria-hidden="true"></span>
-            Admin-Zugang
-          </span>
-          <h1 class="auth__h1">Anmelden.</h1>
-          <p class="auth__p">Du bekommst einen Magic Link per E-Mail. Klick drauf, dann bist du drin.</p>
-          <form id="loginForm" class="auth__form" novalidate>
-            <div class="field">
-              <label for="loginEmail">E-Mail</label>
-              <input id="loginEmail" type="email" autocomplete="email" placeholder="dein@kompass-consulting.at" required />
-            </div>
-            <button type="submit" class="btn btn--pill btn--lg btn--solid btn--block" id="loginBtn">
-              <span>Magic Link senden</span>
-              <span class="btn__icon" aria-hidden="true">
-                <svg viewBox="0 0 16 16" fill="none"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
-              </span>
-            </button>
-            <p class="auth__error" id="authError" hidden></p>
-            <p class="auth__success" id="authSuccess" hidden>
-              ✓ Link gesendet. Check deine Mails.
-            </p>
-          </form>
+    <!-- ==================== APP ==================== -->
+    <div id="app" style="display: none">
+      <aside class="sidebar">
+        <div class="sidebar-logo">
+          <span class="sidebar-logo-label">Admin</span>
+          <span class="sidebar-logo-name">Claude Workshop</span>
         </div>
-      </section>
-
-      <!-- ============ DASHBOARD VIEW ============ -->
-      <section class="dash" id="dashView" hidden>
-        <div class="dash__container">
-          <header class="dash__head">
-            <div>
-              <span class="eyebrow">Buchungen · Pilot No. 01</span>
-              <h1 class="dash__h1">Dashboard.</h1>
-            </div>
-            <div class="dash__head-actions">
-              <button type="button" class="btn btn--pill btn--sm" id="refreshBtn">
-                <svg viewBox="0 0 16 16" fill="none" style="width:14px;height:14px"><path d="M14 8a6 6 0 11-1.76-4.24M14 3v3h-3" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
-                <span>Aktualisieren</span>
-              </button>
-            </div>
-          </header>
-
-          <!-- Stats -->
-          <div class="stats-grid" id="statsGrid">
-            <div class="stat-card">
-              <p class="stat-card__label">Buchungen gesamt</p>
-              <p class="stat-card__value" id="statTotal">—</p>
-            </div>
-            <div class="stat-card">
-              <p class="stat-card__label">Plätze belegt</p>
-              <p class="stat-card__value"><span id="statBelegt">—</span><small> / 8</small></p>
-            </div>
-            <div class="stat-card">
-              <p class="stat-card__label">Offen / Pending</p>
-              <p class="stat-card__value" id="statPending">—</p>
-            </div>
-            <div class="stat-card">
-              <p class="stat-card__label">Umsatz netto</p>
-              <p class="stat-card__value" id="statRevenue">—</p>
-            </div>
-          </div>
-
-          <!-- Filter bar -->
-          <div class="filter-bar">
-            <div class="filter-bar__search">
-              <svg viewBox="0 0 16 16" fill="none" aria-hidden="true"><circle cx="7" cy="7" r="4.5" stroke="currentColor" stroke-width="1.4"/><path d="M11 11l3 3" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/></svg>
-              <input type="search" id="searchInput" placeholder="Suchen nach Name, Firma, E-Mail …" autocomplete="off" />
-            </div>
-            <select id="filterStatus" class="filter-bar__select">
-              <option value="">Alle Status</option>
-              <option value="pending">Pending</option>
-              <option value="confirmed">Confirmed</option>
-              <option value="invoiced">Invoiced</option>
-              <option value="paid">Paid</option>
-              <option value="cancelled">Cancelled</option>
-            </select>
-          </div>
-
-          <!-- Bookings table -->
-          <div class="bookings-card">
-            <div class="bookings-table-wrap">
-              <table class="bookings-table">
-                <thead>
-                  <tr>
-                    <th>Datum</th>
-                    <th>Name</th>
-                    <th>Firma · Gewerk</th>
-                    <th>E-Mail</th>
-                    <th>Status</th>
-                    <th></th>
-                  </tr>
-                </thead>
-                <tbody id="bookingsBody">
-                  <tr><td colspan="6" class="bookings-empty">Lade Buchungen …</td></tr>
-                </tbody>
-              </table>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <!-- ============ DETAIL DRAWER ============ -->
-      <aside class="drawer" id="drawer" hidden>
-        <div class="drawer__backdrop" data-close></div>
-        <div class="drawer__panel">
-          <header class="drawer__head">
-            <div>
-              <p class="drawer__label" id="drawerId"></p>
-              <h2 class="drawer__title" id="drawerName">—</h2>
-            </div>
-            <button type="button" class="drawer__close" data-close aria-label="Schließen">
-              <svg viewBox="0 0 16 16" fill="none"><path d="M3 3l10 10M13 3L3 13" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>
-            </button>
-          </header>
-          <div class="drawer__body" id="drawerBody"></div>
-          <footer class="drawer__foot">
-            <button type="button" class="btn btn--pill" data-close>
-              <span>Schließen</span>
-            </button>
-            <button type="button" class="btn btn--pill btn--solid" id="drawerSave">
-              <span>Änderungen speichern</span>
-              <span class="btn__icon" aria-hidden="true">
-                <svg viewBox="0 0 16 16" fill="none"><path d="M3 8l3 3 7-7" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
-              </span>
-            </button>
-          </footer>
+        <nav class="sidebar-nav">
+          <button class="nav-item active" data-page="dashboard">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+            <span>Dashboard</span>
+          </button>
+          <button class="nav-item" data-page="bookings">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+            <span>Buchungen</span>
+          </button>
+        </nav>
+        <div class="sidebar-footer">
+          <div class="sidebar-email" id="sidebarEmail">—</div>
+          <button class="sidebar-logout" id="logoutBtn">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></svg>
+            <span>Abmelden</span>
+          </button>
         </div>
       </aside>
-    </main>
+
+      <main class="main">
+        <!-- ============ DASHBOARD PAGE ============ -->
+        <div class="page active" id="page-dashboard">
+          <div class="page-header">
+            <h1 class="page-title">Dashboard</h1>
+            <p class="page-subtitle">Übersicht aller Buchungen für Pilot No. 01</p>
+          </div>
+          <div id="dashboardContent"></div>
+        </div>
+
+        <!-- ============ BOOKINGS PAGE ============ -->
+        <div class="page" id="page-bookings">
+          <div class="page-header-row">
+            <div>
+              <h1 class="page-title">Buchungen</h1>
+              <p class="page-subtitle" id="bookingsCount">Lade …</p>
+            </div>
+            <button class="page-action" id="exportBtn">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+              <span>CSV Export</span>
+            </button>
+          </div>
+
+          <div class="filters-row">
+            <div class="filter-field">
+              <label>Status</label>
+              <select class="filter-input" id="filterStatus">
+                <option value="">Alle</option>
+                <option value="pending">Pending</option>
+                <option value="confirmed">Confirmed</option>
+                <option value="invoiced">Invoiced</option>
+                <option value="paid">Paid</option>
+                <option value="cancelled">Cancelled</option>
+              </select>
+            </div>
+            <div class="filter-field">
+              <label>Datum von</label>
+              <input class="filter-input" type="date" id="filterDateFrom" />
+            </div>
+            <div class="filter-field">
+              <label>Datum bis</label>
+              <input class="filter-input" type="date" id="filterDateTo" />
+            </div>
+            <div class="filter-field">
+              <label>Suche</label>
+              <input class="filter-input" type="text" id="filterSearch" placeholder="Name, Firma, E-Mail" autocomplete="off" />
+            </div>
+          </div>
+
+          <div class="content-card bookings-table-card">
+            <div id="bookingsTableContainer"></div>
+          </div>
+        </div>
+      </main>
+    </div>
+
+    <!-- ==================== BOOKING DETAIL MODAL ==================== -->
+    <div class="modal-overlay" id="bookingModal">
+      <div class="modal-card">
+        <button class="modal-close" id="modalClose" aria-label="Schließen">×</button>
+        <div id="modalContent"></div>
+      </div>
+    </div>
 
     <script type="module">
       import { createClient } from "https://esm.sh/@supabase/supabase-js@2";
@@ -175,10 +142,6 @@
       });
 
       const $ = (id) => document.getElementById(id);
-      const authView = $("authView");
-      const dashView = $("dashView");
-      const userEmail = $("userEmail");
-      const logoutBtn = $("logoutBtn");
 
       const STATUS_LABELS = {
         pending: "Pending",
@@ -189,315 +152,524 @@
       };
 
       let bookings = [];
-      let currentDrawerId = null;
       let realtimeChannel = null;
+      let currentBookingId = null;
 
-      // ============ AUTH ============
-      const showAuth = (email) => {
-        authView.hidden = false;
-        dashView.hidden = true;
-        userEmail.hidden = true;
-        logoutBtn.hidden = true;
+      // ============================================================
+      // AUTH
+      // ============================================================
+      const showLogin = () => {
+        $("loginOverlay").style.display = "flex";
+        $("app").style.display = "none";
       };
 
-      const showDash = (email) => {
-        authView.hidden = true;
-        dashView.hidden = false;
-        userEmail.textContent = email;
-        userEmail.hidden = false;
-        logoutBtn.hidden = false;
-        loadBookings();
+      const showApp = async (session) => {
+        $("loginOverlay").style.display = "none";
+        $("app").style.display = "flex";
+        $("sidebarEmail").textContent = session.user.email;
+        await loadBookings();
         subscribeRealtime();
       };
 
       $("loginForm").addEventListener("submit", async (e) => {
         e.preventDefault();
         const email = $("loginEmail").value.trim().toLowerCase();
+        const password = $("loginPassword").value;
+        const errEl = $("loginError");
+        const okEl = $("loginSuccess");
         const btn = $("loginBtn");
-        const err = $("authError");
-        const ok = $("authSuccess");
-        err.hidden = true;
-        ok.hidden = true;
+        errEl.textContent = "";
+        okEl.hidden = true;
         btn.disabled = true;
-
-        const { error } = await supabase.auth.signInWithOtp({
-          email,
-          options: {
-            emailRedirectTo: window.location.origin + "/admin.html",
-            shouldCreateUser: true,
-          },
-        });
-
+        btn.textContent = "Anmelden …";
+        const { error } = await supabase.auth.signInWithPassword({ email, password });
         btn.disabled = false;
+        btn.textContent = "Anmelden";
         if (error) {
-          err.textContent = "Login fehlgeschlagen: " + error.message;
-          err.hidden = false;
-        } else {
-          ok.hidden = false;
+          errEl.textContent =
+            error.message === "Invalid login credentials"
+              ? "E-Mail oder Passwort falsch."
+              : "Login fehlgeschlagen: " + error.message;
         }
       });
 
-      logoutBtn.addEventListener("click", async () => {
-        await supabase.auth.signOut();
+      $("forgotBtn").addEventListener("click", async () => {
+        const email = $("loginEmail").value.trim().toLowerCase();
+        const errEl = $("loginError");
+        const okEl = $("loginSuccess");
+        errEl.textContent = "";
+        okEl.hidden = true;
+        if (!email) {
+          errEl.textContent = "Bitte E-Mail eingeben, dann auf „Passwort vergessen“ klicken.";
+          return;
+        }
+        const { error } = await supabase.auth.resetPasswordForEmail(email, {
+          redirectTo: window.location.origin + "/admin.html",
+        });
+        if (error) {
+          errEl.textContent = "Reset fehlgeschlagen: " + error.message;
+        } else {
+          okEl.textContent = "Reset-Link gesendet. Check deine Mails.";
+          okEl.hidden = false;
+        }
+      });
+
+      $("logoutBtn").addEventListener("click", async () => {
         if (realtimeChannel) await supabase.removeChannel(realtimeChannel);
-        showAuth();
+        await supabase.auth.signOut();
       });
 
       supabase.auth.onAuthStateChange((event, session) => {
-        if (session?.user?.email) {
-          showDash(session.user.email);
-        } else {
-          showAuth();
-        }
+        if (event === "SIGNED_IN" && session) showApp(session);
+        else if (event === "SIGNED_OUT") showLogin();
+        else if (event === "PASSWORD_RECOVERY") showLogin();
       });
 
-      // Initial session check
       supabase.auth.getSession().then(({ data }) => {
-        if (data.session?.user?.email) {
-          showDash(data.session.user.email);
-        } else {
-          showAuth();
-        }
+        if (data.session) showApp(data.session);
+        else showLogin();
       });
 
-      // ============ BOOKINGS ============
-      const fmtDate = (iso) =>
-        new Date(iso).toLocaleString("de-DE", {
-          timeZone: "Europe/Berlin",
-          day: "2-digit",
-          month: "short",
-          hour: "2-digit",
-          minute: "2-digit",
+      // ============================================================
+      // PAGE SWITCHING
+      // ============================================================
+      document.querySelectorAll(".nav-item").forEach((btn) => {
+        btn.addEventListener("click", () => {
+          const target = btn.dataset.page;
+          document.querySelectorAll(".nav-item").forEach((n) => n.classList.toggle("active", n.dataset.page === target));
+          document.querySelectorAll(".page").forEach((p) => p.classList.toggle("active", p.id === `page-${target}`));
         });
+      });
 
-      const fmtEUR = (cents) =>
-        new Intl.NumberFormat("de-DE", { style: "currency", currency: "EUR", maximumFractionDigits: 0 }).format(cents);
-
-      const escape = (s) =>
-        String(s ?? "")
-          .replace(/&/g, "&amp;")
-          .replace(/</g, "&lt;")
-          .replace(/>/g, "&gt;")
-          .replace(/"/g, "&quot;");
-
+      // ============================================================
+      // DATA
+      // ============================================================
       const loadBookings = async () => {
         const { data, error } = await supabase
           .from("bookings")
           .select("*")
           .order("created_at", { ascending: false });
-
         if (error) {
-          console.error(error);
-          $("bookingsBody").innerHTML = `<tr><td colspan="6" class="bookings-empty bookings-empty--error">Fehler beim Laden: ${escape(error.message)}</td></tr>`;
+          console.error("[admin] Load error:", error);
+          $("bookingsTableContainer").innerHTML = `<div class="empty-state empty-state--error">Fehler: ${escapeHtml(error.message)}</div>`;
           return;
         }
         bookings = data || [];
-        render();
-      };
-
-      const computeStats = () => {
-        const countedStatus = ["confirmed", "invoiced", "paid"];
-        const belegt = bookings.filter((b) => countedStatus.includes(b.status)).length;
-        const pending = bookings.filter((b) => b.status === "pending").length;
-        const revenue = bookings
-          .filter((b) => countedStatus.includes(b.status))
-          .reduce((s, b) => s + (b.preis_netto || 0), 0);
-        $("statTotal").textContent = bookings.length;
-        $("statBelegt").textContent = belegt;
-        $("statPending").textContent = pending;
-        $("statRevenue").textContent = fmtEUR(revenue);
-      };
-
-      const matchesFilter = (b) => {
-        const q = $("searchInput").value.toLowerCase().trim();
-        const status = $("filterStatus").value;
-        if (status && b.status !== status) return false;
-        if (!q) return true;
-        return [b.vorname, b.nachname, b.firma, b.email, b.gewerk, b.ort]
-          .filter(Boolean)
-          .some((v) => v.toLowerCase().includes(q));
-      };
-
-      const render = () => {
-        computeStats();
-        const tbody = $("bookingsBody");
-        const filtered = bookings.filter(matchesFilter);
-        if (filtered.length === 0) {
-          tbody.innerHTML = `<tr><td colspan="6" class="bookings-empty">${bookings.length === 0 ? "Noch keine Buchungen." : "Keine Treffer."}</td></tr>`;
-          return;
-        }
-        tbody.innerHTML = filtered
-          .map(
-            (b) => `
-            <tr data-id="${b.id}">
-              <td class="cell-date">${escape(fmtDate(b.created_at))}</td>
-              <td><strong>${escape(b.vorname)} ${escape(b.nachname)}</strong></td>
-              <td>${escape(b.firma || "—")}<br><span class="cell-muted">${escape(b.gewerk || "—")}</span></td>
-              <td><a href="mailto:${escape(b.email)}">${escape(b.email)}</a></td>
-              <td>
-                <select class="status-pill status-pill--${b.status}" data-id="${b.id}" data-field="status">
-                  ${Object.entries(STATUS_LABELS)
-                    .map(
-                      ([v, l]) =>
-                        `<option value="${v}" ${b.status === v ? "selected" : ""}>${l}</option>`
-                    )
-                    .join("")}
-                </select>
-              </td>
-              <td>
-                <button type="button" class="row-open" data-id="${b.id}">Öffnen ↗</button>
-              </td>
-            </tr>`
-          )
-          .join("");
-
-        tbody.querySelectorAll("select[data-field='status']").forEach((sel) => {
-          sel.addEventListener("change", async (e) => {
-            const id = e.target.dataset.id;
-            const newStatus = e.target.value;
-            await updateBooking(id, { status: newStatus });
-          });
-        });
-        tbody.querySelectorAll(".row-open").forEach((btn) => {
-          btn.addEventListener("click", () => openDrawer(btn.dataset.id));
-        });
+        renderDashboard();
+        renderBookingsTable();
       };
 
       const updateBooking = async (id, patch) => {
-        const idx = bookings.findIndex((b) => b.id === id);
-        if (idx === -1) return;
-        const prev = bookings[idx];
-        bookings[idx] = { ...prev, ...patch };
-        render();
         const { error } = await supabase.from("bookings").update(patch).eq("id", id);
         if (error) {
-          bookings[idx] = prev;
-          render();
           alert("Speichern fehlgeschlagen: " + error.message);
+          return false;
         }
-      };
-
-      $("refreshBtn").addEventListener("click", loadBookings);
-      $("searchInput").addEventListener("input", render);
-      $("filterStatus").addEventListener("change", render);
-
-      // ============ DRAWER ============
-      const drawer = $("drawer");
-      const openDrawer = (id) => {
         const b = bookings.find((x) => x.id === id);
-        if (!b) return;
-        currentDrawerId = id;
-        $("drawerId").textContent = `ID ${id.slice(0, 8)} · ${fmtDate(b.created_at)}`;
-        $("drawerName").textContent = `${b.vorname} ${b.nachname}`;
-        $("drawerBody").innerHTML = `
-          <div class="drawer-section">
-            <p class="drawer-section__label">Kontakt</p>
-            <dl class="drawer-dl">
-              <div><dt>Firma</dt><dd>${escape(b.firma || "—")}</dd></div>
-              <div><dt>Gewerk</dt><dd>${escape(b.gewerk || "—")}</dd></div>
-              <div><dt>E-Mail</dt><dd><a href="mailto:${escape(b.email)}">${escape(b.email)}</a></dd></div>
-              <div><dt>Telefon</dt><dd>${b.telefon ? `<a href="tel:${escape(b.telefon)}">${escape(b.telefon)}</a>` : "—"}</dd></div>
-            </dl>
-          </div>
-          <div class="drawer-section">
-            <p class="drawer-section__label">Rechnungsadresse</p>
-            <p class="drawer-address">${escape(b.strasse)}<br>${escape(b.plz)} ${escape(b.ort)}<br>${escape(b.land || "Deutschland")}</p>
-            <dl class="drawer-dl">
-              <div><dt>USt-IdNr.</dt><dd>${escape(b.ust_id || "—")}</dd></div>
-            </dl>
-          </div>
-          <div class="drawer-section">
-            <p class="drawer-section__label">Workflow</p>
-            <div class="drawer-field">
-              <label for="d-status">Status</label>
-              <select id="d-status">
-                ${Object.entries(STATUS_LABELS)
-                  .map(([v, l]) => `<option value="${v}" ${b.status === v ? "selected" : ""}>${l}</option>`)
-                  .join("")}
-              </select>
-            </div>
-            <div class="drawer-field">
-              <label for="d-termin">Workshop-Termin</label>
-              <input type="date" id="d-termin" value="${escape(b.workshop_termin || "")}" />
-            </div>
-            <div class="drawer-field">
-              <label for="d-invoice">Rechnungsnummer</label>
-              <input type="text" id="d-invoice" value="${escape(b.invoice_number || "")}" placeholder="z. B. 2026-001" />
-            </div>
-            <div class="drawer-field">
-              <label for="d-notes">Interne Notiz</label>
-              <textarea id="d-notes" rows="3" placeholder="Nur intern sichtbar">${escape(b.admin_notes || "")}</textarea>
-            </div>
-          </div>
-          ${b.notiz ? `<div class="drawer-section">
-            <p class="drawer-section__label">Anmerkung vom Kunden</p>
-            <p class="drawer-quote">${escape(b.notiz)}</p>
-          </div>` : ""}
-          <div class="drawer-section drawer-section--meta">
-            <p class="drawer-section__label">Audit</p>
-            <dl class="drawer-dl drawer-dl--small">
-              <div><dt>Buchungs-ID</dt><dd class="mono">${escape(b.id)}</dd></div>
-              <div><dt>Eingegangen</dt><dd>${escape(fmtDate(b.created_at))}</dd></div>
-              <div><dt>IP</dt><dd>${escape(b.ip_address || "—")}</dd></div>
-              <div><dt>Verbindlich</dt><dd>${b.binding_accepted ? "✓ Bestätigt" : "—"}</dd></div>
-            </dl>
-          </div>
-        `;
-        drawer.hidden = false;
-        document.body.style.overflow = "hidden";
+        if (b) Object.assign(b, patch);
+        renderDashboard();
+        renderBookingsTable();
+        return true;
       };
 
-      const closeDrawer = () => {
-        drawer.hidden = true;
-        currentDrawerId = null;
-        document.body.style.overflow = "";
-      };
-
-      drawer.querySelectorAll("[data-close]").forEach((el) =>
-        el.addEventListener("click", closeDrawer)
-      );
-
-      $("drawerSave").addEventListener("click", async () => {
-        if (!currentDrawerId) return;
-        const btn = $("drawerSave");
-        btn.disabled = true;
-        const patch = {
-          status: $("d-status").value,
-          workshop_termin: $("d-termin").value || null,
-          invoice_number: $("d-invoice").value.trim() || null,
-          admin_notes: $("d-notes").value.trim() || null,
-        };
-        await updateBooking(currentDrawerId, patch);
-        btn.disabled = false;
-        closeDrawer();
-      });
-
-      document.addEventListener("keydown", (e) => {
-        if (e.key === "Escape" && !drawer.hidden) closeDrawer();
-      });
-
-      // ============ REALTIME ============
       const subscribeRealtime = () => {
         if (realtimeChannel) supabase.removeChannel(realtimeChannel);
         realtimeChannel = supabase
           .channel("bookings-changes")
-          .on(
-            "postgres_changes",
-            { event: "*", schema: "public", table: "bookings" },
-            (payload) => {
-              if (payload.eventType === "INSERT") {
-                bookings.unshift(payload.new);
-              } else if (payload.eventType === "UPDATE") {
-                const idx = bookings.findIndex((b) => b.id === payload.new.id);
-                if (idx !== -1) bookings[idx] = payload.new;
-              } else if (payload.eventType === "DELETE") {
-                bookings = bookings.filter((b) => b.id !== payload.old.id);
-              }
-              render();
-            }
-          )
+          .on("postgres_changes", { event: "*", schema: "public", table: "bookings" }, () => {
+            loadBookings();
+          })
           .subscribe();
       };
+
+      // ============================================================
+      // HELPERS
+      // ============================================================
+      const escapeHtml = (s) =>
+        String(s ?? "").replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;");
+      const escapeAttr = (s) => escapeHtml(s).replace(/'/g, "&#39;");
+
+      const fmtDate = (iso) =>
+        new Date(iso).toLocaleString("de-DE", {
+          timeZone: "Europe/Berlin",
+          day: "2-digit",
+          month: "short",
+          year: "2-digit",
+          hour: "2-digit",
+          minute: "2-digit",
+        });
+
+      const fmtDateShort = (iso) =>
+        new Date(iso).toLocaleDateString("de-DE", {
+          timeZone: "Europe/Berlin",
+          day: "2-digit",
+          month: "short",
+        });
+
+      const fmtEUR = (cents) =>
+        new Intl.NumberFormat("de-DE", { style: "currency", currency: "EUR", maximumFractionDigits: 0 }).format(cents);
+
+      const statusBadge = (status) => {
+        const label = STATUS_LABELS[status] || status;
+        return `<span class="status-badge status-${status}">${escapeHtml(label)}</span>`;
+      };
+
+      // ============================================================
+      // RENDER: DASHBOARD
+      // ============================================================
+      const renderDashboard = () => {
+        const total = bookings.length;
+        const countedStatus = ["confirmed", "invoiced", "paid"];
+        const belegt = bookings.filter((b) => countedStatus.includes(b.status)).length;
+        const pending = bookings.filter((b) => b.status === "pending").length;
+        const paid = bookings.filter((b) => b.status === "paid").length;
+        const cancelled = bookings.filter((b) => b.status === "cancelled").length;
+        const revenue = bookings.filter((b) => countedStatus.includes(b.status)).reduce((s, b) => s + (b.preis_netto || 0), 0);
+
+        const now = Date.now();
+        const dayAgo = now - 24 * 60 * 60 * 1000;
+        const weekAgo = now - 7 * 24 * 60 * 60 * 1000;
+        const todayCount = bookings.filter((b) => new Date(b.created_at).getTime() >= dayAgo).length;
+        const weekCount = bookings.filter((b) => new Date(b.created_at).getTime() >= weekAgo).length;
+
+        const recent = bookings.slice(0, 8);
+
+        // Status breakdown for bar chart
+        const statusCounts = Object.keys(STATUS_LABELS).map((s) => ({
+          key: s,
+          label: STATUS_LABELS[s],
+          count: bookings.filter((b) => b.status === s).length,
+        }));
+        const maxCount = Math.max(1, ...statusCounts.map((s) => s.count));
+
+        const html = `
+          <div class="stats-grid">
+            <div class="stat-card">
+              <div class="stat-label">Buchungen gesamt</div>
+              <div class="stat-value">${total}</div>
+              <div class="stat-caption">${todayCount} heute · ${weekCount} diese Woche</div>
+            </div>
+            <div class="stat-card">
+              <div class="stat-label">Plätze belegt</div>
+              <div class="stat-value">${belegt}<small> / 8</small></div>
+              <div class="stat-caption">${8 - belegt} noch frei</div>
+            </div>
+            <div class="stat-card">
+              <div class="stat-label">Pending</div>
+              <div class="stat-value">${pending}</div>
+              <div class="stat-caption">${cancelled} cancelled · ${paid} paid</div>
+            </div>
+            <div class="stat-card">
+              <div class="stat-label">Umsatz netto</div>
+              <div class="stat-value">${fmtEUR(revenue)}</div>
+              <div class="stat-caption">bestätigt · in Rechnung · bezahlt</div>
+            </div>
+          </div>
+
+          <div class="content-grid">
+            <div class="content-card">
+              <div class="content-card-title">Letzte Buchungen</div>
+              ${recent.length === 0 ? '<div class="empty-state">Noch keine Buchungen. Sobald jemand auf claude-workshop.de bucht, taucht es hier auf.</div>' : `
+                <div class="table-wrap">
+                  <table class="table">
+                    <thead><tr><th>Name</th><th>Firma</th><th>Status</th><th>Datum</th></tr></thead>
+                    <tbody>
+                      ${recent
+                        .map(
+                          (b) => `
+                        <tr style="cursor:pointer" data-open="${b.id}">
+                          <td><strong>${escapeHtml(b.vorname)} ${escapeHtml(b.nachname)}</strong></td>
+                          <td class="muted">${escapeHtml(b.firma || "—")}</td>
+                          <td>${statusBadge(b.status)}</td>
+                          <td class="muted">${fmtDateShort(b.created_at)}</td>
+                        </tr>
+                      `,
+                        )
+                        .join("")}
+                    </tbody>
+                  </table>
+                </div>
+              `}
+            </div>
+            <div class="content-card">
+              <div class="content-card-title">Status-Verteilung</div>
+              ${
+                bookings.length === 0
+                  ? '<div class="empty-state">Noch keine Daten.</div>'
+                  : statusCounts
+                      .map(
+                        (s) => `
+                <div class="bar-row">
+                  <div class="bar-label">${escapeHtml(s.label)}</div>
+                  <div class="bar-track"><div class="bar-fill bar-fill--${s.key}" style="width:${(s.count / maxCount) * 100}%"></div></div>
+                  <div class="bar-value">${s.count}</div>
+                </div>
+              `,
+                      )
+                      .join("")
+              }
+            </div>
+          </div>
+        `;
+        $("dashboardContent").innerHTML = html;
+
+        // Bind row clicks
+        $("dashboardContent")
+          .querySelectorAll("[data-open]")
+          .forEach((row) => row.addEventListener("click", () => openModal(row.dataset.open)));
+      };
+
+      // ============================================================
+      // RENDER: BOOKINGS TABLE
+      // ============================================================
+      const applyFilters = (list) => {
+        const status = $("filterStatus").value;
+        const dateFrom = $("filterDateFrom").value;
+        const dateTo = $("filterDateTo").value;
+        const search = $("filterSearch").value.toLowerCase().trim();
+        return list.filter((b) => {
+          if (status && b.status !== status) return false;
+          if (dateFrom && new Date(b.created_at) < new Date(dateFrom)) return false;
+          if (dateTo) {
+            const end = new Date(dateTo);
+            end.setHours(23, 59, 59, 999);
+            if (new Date(b.created_at) > end) return false;
+          }
+          if (search) {
+            const hay = [b.vorname, b.nachname, b.firma, b.email, b.gewerk, b.ort]
+              .filter(Boolean)
+              .join(" ")
+              .toLowerCase();
+            if (!hay.includes(search)) return false;
+          }
+          return true;
+        });
+      };
+
+      const renderBookingsTable = () => {
+        const filtered = applyFilters(bookings);
+        const total = bookings.length;
+        $("bookingsCount").textContent =
+          filtered.length === total
+            ? `${total} Buchung${total === 1 ? "" : "en"} insgesamt`
+            : `${filtered.length} von ${total} Buchungen (gefiltert)`;
+
+        const html =
+          filtered.length === 0
+            ? `<div class="empty-state" style="padding:3rem">${total === 0 ? "Noch keine Buchungen." : "Keine Buchungen entsprechen den Filtern."}</div>`
+            : `
+          <div class="table-wrap">
+            <table class="bookings-table">
+              <thead>
+                <tr>
+                  <th>Name</th>
+                  <th>Firma · Gewerk</th>
+                  <th>E-Mail</th>
+                  <th>Status</th>
+                  <th>Datum</th>
+                  <th></th>
+                </tr>
+              </thead>
+              <tbody>
+                ${filtered
+                  .map(
+                    (b) => `
+                  <tr>
+                    <td><strong>${escapeHtml(b.vorname)} ${escapeHtml(b.nachname)}</strong></td>
+                    <td>
+                      ${escapeHtml(b.firma || "—")}
+                      ${b.gewerk ? `<br><span class="muted">${escapeHtml(b.gewerk)}</span>` : ""}
+                    </td>
+                    <td><a href="mailto:${escapeAttr(b.email)}">${escapeHtml(b.email)}</a></td>
+                    <td>${statusBadge(b.status)}</td>
+                    <td class="muted">${fmtDateShort(b.created_at)}</td>
+                    <td><button class="details-btn" data-open="${b.id}">Details</button></td>
+                  </tr>
+                `,
+                  )
+                  .join("")}
+              </tbody>
+            </table>
+          </div>
+        `;
+        $("bookingsTableContainer").innerHTML = html;
+
+        // Bind buttons
+        $("bookingsTableContainer")
+          .querySelectorAll("[data-open]")
+          .forEach((btn) => btn.addEventListener("click", () => openModal(btn.dataset.open)));
+      };
+
+      // Filter bindings
+      ["filterStatus", "filterDateFrom", "filterDateTo", "filterSearch"].forEach((id) => {
+        const el = $(id);
+        el.addEventListener("input", renderBookingsTable);
+        el.addEventListener("change", renderBookingsTable);
+      });
+
+      // ============================================================
+      // MODAL
+      // ============================================================
+      const openModal = (id) => {
+        const b = bookings.find((x) => x.id === id);
+        if (!b) return;
+        currentBookingId = id;
+        const addr = `${escapeHtml(b.strasse)}<br>${escapeHtml(b.plz)} ${escapeHtml(b.ort)}<br>${escapeHtml(b.land || "Deutschland")}`;
+
+        $("modalContent").innerHTML = `
+          <div class="modal-header">
+            <h2>${escapeHtml(b.vorname)} ${escapeHtml(b.nachname)}</h2>
+            <p>${escapeHtml(b.email)}${b.telefon ? " · " + escapeHtml(b.telefon) : ""}</p>
+            <p class="muted">Buchung vom ${fmtDate(b.created_at)} · ID ${escapeHtml(b.id.slice(0, 8))}</p>
+          </div>
+
+          <div class="modal-section">
+            <label>Status</label>
+            <select id="m-status">
+              ${Object.entries(STATUS_LABELS)
+                .map(([v, l]) => `<option value="${v}" ${b.status === v ? "selected" : ""}>${l}</option>`)
+                .join("")}
+            </select>
+          </div>
+
+          <div class="modal-section modal-section--row">
+            <div>
+              <label>Workshop-Termin</label>
+              <input type="date" id="m-termin" value="${escapeAttr(b.workshop_termin || "")}" />
+            </div>
+            <div>
+              <label>Rechnungsnummer</label>
+              <input type="text" id="m-invoice" value="${escapeAttr(b.invoice_number || "")}" placeholder="z. B. 2026-001" />
+            </div>
+          </div>
+
+          <div class="modal-section">
+            <label>Interne Notiz</label>
+            <textarea id="m-notes" rows="3" placeholder="Nur intern sichtbar">${escapeHtml(b.admin_notes || "")}</textarea>
+          </div>
+
+          <div class="modal-section">
+            <h3>Buchungsdaten</h3>
+            <dl class="modal-dl">
+              <dt>Firma</dt><dd>${escapeHtml(b.firma || "—")}</dd>
+              <dt>Gewerk</dt><dd>${escapeHtml(b.gewerk || "—")}</dd>
+              <dt>Rechnungsadresse</dt><dd>${addr}</dd>
+              <dt>USt-IdNr.</dt><dd>${escapeHtml(b.ust_id || "—")}</dd>
+              <dt>Preis netto</dt><dd>${fmtEUR(b.preis_netto || 0)}</dd>
+            </dl>
+          </div>
+
+          ${
+            b.notiz
+              ? `<div class="modal-section">
+                  <h3>Anmerkung vom Kunden</h3>
+                  <div class="quote-box">${escapeHtml(b.notiz)}</div>
+                </div>`
+              : ""
+          }
+
+          <div class="modal-section modal-section--meta">
+            <h3>Audit</h3>
+            <dl class="modal-dl modal-dl--small">
+              <dt>Buchungs-ID</dt><dd class="mono">${escapeHtml(b.id)}</dd>
+              <dt>Eingegangen</dt><dd>${fmtDate(b.created_at)}</dd>
+              <dt>IP-Adresse</dt><dd class="mono">${escapeHtml(b.ip_address || "—")}</dd>
+              <dt>Verbindlich</dt><dd>${b.binding_accepted ? "✓ Bestätigt" : "—"}</dd>
+              <dt>AGB</dt><dd>${b.agb_accepted ? "✓ Akzeptiert" : "—"}</dd>
+              <dt>Datenschutz</dt><dd>${b.privacy_accepted ? "✓ Akzeptiert" : "—"}</dd>
+            </dl>
+          </div>
+
+          <div class="modal-actions">
+            <button type="button" class="modal-btn modal-btn--ghost" id="modalCancel">Abbrechen</button>
+            <button type="button" class="modal-btn modal-btn--primary" id="modalSave">Änderungen speichern</button>
+          </div>
+        `;
+
+        $("bookingModal").classList.add("open");
+        document.body.style.overflow = "hidden";
+
+        $("modalCancel").addEventListener("click", closeModal);
+        $("modalSave").addEventListener("click", saveModal);
+      };
+
+      const closeModal = () => {
+        $("bookingModal").classList.remove("open");
+        currentBookingId = null;
+        document.body.style.overflow = "";
+      };
+
+      const saveModal = async () => {
+        if (!currentBookingId) return;
+        const btn = $("modalSave");
+        btn.disabled = true;
+        btn.textContent = "Speichere …";
+        const patch = {
+          status: $("m-status").value,
+          workshop_termin: $("m-termin").value || null,
+          invoice_number: $("m-invoice").value.trim() || null,
+          admin_notes: $("m-notes").value.trim() || null,
+        };
+        const ok = await updateBooking(currentBookingId, patch);
+        btn.disabled = false;
+        btn.textContent = "Änderungen speichern";
+        if (ok) closeModal();
+      };
+
+      $("modalClose").addEventListener("click", closeModal);
+      $("bookingModal").addEventListener("click", (e) => {
+        if (e.target === $("bookingModal")) closeModal();
+      });
+      document.addEventListener("keydown", (e) => {
+        if (e.key === "Escape" && $("bookingModal").classList.contains("open")) closeModal();
+      });
+
+      // ============================================================
+      // CSV EXPORT
+      // ============================================================
+      $("exportBtn").addEventListener("click", () => {
+        const filtered = applyFilters(bookings);
+        if (filtered.length === 0) {
+          alert("Keine Buchungen zum Exportieren.");
+          return;
+        }
+        const cols = [
+          ["id", "Buchungs-ID"],
+          ["created_at", "Eingegangen"],
+          ["vorname", "Vorname"],
+          ["nachname", "Nachname"],
+          ["firma", "Firma"],
+          ["gewerk", "Gewerk"],
+          ["strasse", "Straße"],
+          ["plz", "PLZ"],
+          ["ort", "Ort"],
+          ["land", "Land"],
+          ["ust_id", "USt-IdNr."],
+          ["email", "E-Mail"],
+          ["telefon", "Telefon"],
+          ["status", "Status"],
+          ["workshop_termin", "Workshop-Termin"],
+          ["invoice_number", "Rechnungsnummer"],
+          ["preis_netto", "Preis netto"],
+          ["notiz", "Notiz"],
+          ["admin_notes", "Admin-Notiz"],
+        ];
+        const csvEscape = (v) => {
+          if (v === null || v === undefined) return "";
+          const s = String(v).replace(/"/g, '""');
+          return /[",\n;]/.test(s) ? `"${s}"` : s;
+        };
+        const header = cols.map(([, l]) => l).join(";");
+        const rows = filtered.map((b) => cols.map(([k]) => csvEscape(b[k])).join(";"));
+        const csv = "﻿" + [header, ...rows].join("\n");
+        const blob = new Blob([csv], { type: "text/csv;charset=utf-8" });
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement("a");
+        a.href = url;
+        a.download = `buchungen-${new Date().toISOString().slice(0, 10)}.csv`;
+        a.click();
+        URL.revokeObjectURL(url);
+      });
     </script>
   </body>
 </html>
