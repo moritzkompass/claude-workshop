@@ -1,5 +1,5 @@
 /* ============================================================
-   Werkstatt KI — Apple-tier monochrome
+   Claude Workshop — Apple-tier monochrome
    No accent color. Hierarchy by weight, size, and tone.
    ============================================================ */
 
@@ -1403,23 +1403,34 @@ section { position: relative; }
   border-top: 1px solid var(--hairline);
 }
 .audience__list li {
-  padding: 14px 0;
+  padding: 16px 0 16px 36px;
   border-bottom: 1px solid var(--hairline);
   font-size: 15.5px;
   color: var(--ink-2);
   line-height: 1.5;
   position: relative;
-  padding-left: 28px;
 }
 .audience__list li::before {
   content: "";
   position: absolute;
-  left: 0; top: 0.65em;
-  width: 16px; height: 1px;
-  background: var(--ink);
+  left: 0;
+  top: 0.85em;
+  width: 22px;
+  height: 22px;
+  border-radius: 999px;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: 12px 12px;
+}
+.audience__list--check li::before {
+  background-color: var(--accent);
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 12 12' fill='none'><path d='M2 6.2l2.6 2.6L10 3.4' stroke='%23ffffff' stroke-width='1.8' stroke-linecap='round' stroke-linejoin='round'/></svg>");
+}
+.audience__list--cross li::before {
+  background-color: var(--surface-2);
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 12 12' fill='none'><path d='M3.5 3.5l5 5M8.5 3.5l-5 5' stroke='%236e6e73' stroke-width='1.8' stroke-linecap='round'/></svg>");
 }
 .audience__list--muted li { color: var(--muted); }
-.audience__list--muted li::before { background: var(--muted-2); }
 .audience__list li:last-child { border-bottom: 0; }
 @media (max-width: 880px) {
   .audience__grid { grid-template-columns: 1fr; }
