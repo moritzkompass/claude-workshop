@@ -369,7 +369,7 @@
   display: grid;
   grid-template-columns: 24px 1fr;
   gap: 12px;
-  align-items: start;
+  align-items: center;
 }
 .trust__icon {
   color: var(--accent);
