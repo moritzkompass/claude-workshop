@@ -1,0 +1,503 @@
+<!doctype html>
+<html lang="de">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <title>Admin · Claude Workshop</title>
+    <meta name="robots" content="noindex, nofollow" />
+    <meta name="theme-color" content="#FBFBFD" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Geist:wght@300;400;500;600;700&family=Geist+Mono:wght@400;500&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="styles.css" />
+    <link rel="stylesheet" href="admin.css" />
+  </head>
+  <body class="page-admin">
+    <header class="admin-nav" id="nav">
+      <a class="nav__brand" href="/">
+        <svg class="nav__mark" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+          <path d="M4 20L12 4l8 16M8 20l4-8 4 8" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+        <span>Claude Workshop</span>
+        <span class="admin-nav__badge">Admin</span>
+      </a>
+      <div class="admin-nav__right">
+        <span class="admin-nav__user" id="userEmail" hidden></span>
+        <button type="button" class="btn btn--pill btn--sm" id="logoutBtn" hidden>
+          <span>Abmelden</span>
+        </button>
+      </div>
+    </header>
+
+    <main id="main">
+      <!-- ============ AUTH VIEW ============ -->
+      <section class="auth" id="authView">
+        <div class="auth__card">
+          <span class="eyebrow">
+            <span class="eyebrow__dot" aria-hidden="true"></span>
+            Admin-Zugang
+          </span>
+          <h1 class="auth__h1">Anmelden.</h1>
+          <p class="auth__p">Du bekommst einen Magic Link per E-Mail. Klick drauf, dann bist du drin.</p>
+          <form id="loginForm" class="auth__form" novalidate>
+            <div class="field">
+              <label for="loginEmail">E-Mail</label>
+              <input id="loginEmail" type="email" autocomplete="email" placeholder="dein@kompass-consulting.at" required />
+            </div>
+            <button type="submit" class="btn btn--pill btn--lg btn--solid btn--block" id="loginBtn">
+              <span>Magic Link senden</span>
+              <span class="btn__icon" aria-hidden="true">
+                <svg viewBox="0 0 16 16" fill="none"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              </span>
+            </button>
+            <p class="auth__error" id="authError" hidden></p>
+            <p class="auth__success" id="authSuccess" hidden>
+              ✓ Link gesendet. Check deine Mails.
+            </p>
+          </form>
+        </div>
+      </section>
+
+      <!-- ============ DASHBOARD VIEW ============ -->
+      <section class="dash" id="dashView" hidden>
+        <div class="dash__container">
+          <header class="dash__head">
+            <div>
+              <span class="eyebrow">Buchungen · Pilot No. 01</span>
+              <h1 class="dash__h1">Dashboard.</h1>
+            </div>
+            <div class="dash__head-actions">
+              <button type="button" class="btn btn--pill btn--sm" id="refreshBtn">
+                <svg viewBox="0 0 16 16" fill="none" style="width:14px;height:14px"><path d="M14 8a6 6 0 11-1.76-4.24M14 3v3h-3" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                <span>Aktualisieren</span>
+              </button>
+            </div>
+          </header>
+
+          <!-- Stats -->
+          <div class="stats-grid" id="statsGrid">
+            <div class="stat-card">
+              <p class="stat-card__label">Buchungen gesamt</p>
+              <p class="stat-card__value" id="statTotal">—</p>
+            </div>
+            <div class="stat-card">
+              <p class="stat-card__label">Plätze belegt</p>
+              <p class="stat-card__value"><span id="statBelegt">—</span><small> / 8</small></p>
+            </div>
+            <div class="stat-card">
+              <p class="stat-card__label">Offen / Pending</p>
+              <p class="stat-card__value" id="statPending">—</p>
+            </div>
+            <div class="stat-card">
+              <p class="stat-card__label">Umsatz netto</p>
+              <p class="stat-card__value" id="statRevenue">—</p>
+            </div>
+          </div>
+
+          <!-- Filter bar -->
+          <div class="filter-bar">
+            <div class="filter-bar__search">
+              <svg viewBox="0 0 16 16" fill="none" aria-hidden="true"><circle cx="7" cy="7" r="4.5" stroke="currentColor" stroke-width="1.4"/><path d="M11 11l3 3" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/></svg>
+              <input type="search" id="searchInput" placeholder="Suchen nach Name, Firma, E-Mail …" autocomplete="off" />
+            </div>
+            <select id="filterStatus" class="filter-bar__select">
+              <option value="">Alle Status</option>
+              <option value="pending">Pending</option>
+              <option value="confirmed">Confirmed</option>
+              <option value="invoiced">Invoiced</option>
+              <option value="paid">Paid</option>
+              <option value="cancelled">Cancelled</option>
+            </select>
+          </div>
+
+          <!-- Bookings table -->
+          <div class="bookings-card">
+            <div class="bookings-table-wrap">
+              <table class="bookings-table">
+                <thead>
+                  <tr>
+                    <th>Datum</th>
+                    <th>Name</th>
+                    <th>Firma · Gewerk</th>
+                    <th>E-Mail</th>
+                    <th>Status</th>
+                    <th></th>
+                  </tr>
+                </thead>
+                <tbody id="bookingsBody">
+                  <tr><td colspan="6" class="bookings-empty">Lade Buchungen …</td></tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ============ DETAIL DRAWER ============ -->
+      <aside class="drawer" id="drawer" hidden>
+        <div class="drawer__backdrop" data-close></div>
+        <div class="drawer__panel">
+          <header class="drawer__head">
+            <div>
+              <p class="drawer__label" id="drawerId"></p>
+              <h2 class="drawer__title" id="drawerName">—</h2>
+            </div>
+            <button type="button" class="drawer__close" data-close aria-label="Schließen">
+              <svg viewBox="0 0 16 16" fill="none"><path d="M3 3l10 10M13 3L3 13" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>
+            </button>
+          </header>
+          <div class="drawer__body" id="drawerBody"></div>
+          <footer class="drawer__foot">
+            <button type="button" class="btn btn--pill" data-close>
+              <span>Schließen</span>
+            </button>
+            <button type="button" class="btn btn--pill btn--solid" id="drawerSave">
+              <span>Änderungen speichern</span>
+              <span class="btn__icon" aria-hidden="true">
+                <svg viewBox="0 0 16 16" fill="none"><path d="M3 8l3 3 7-7" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              </span>
+            </button>
+          </footer>
+        </div>
+      </aside>
+    </main>
+
+    <script type="module">
+      import { createClient } from "https://esm.sh/@supabase/supabase-js@2";
+
+      const SUPABASE_URL = "https://kukuxfzkssphiakrfkpy.supabase.co";
+      const ANON_KEY = "sb_publishable_-QFFO0-IgUQoUCqQXP7ULQ_uyprce2-";
+      const supabase = createClient(SUPABASE_URL, ANON_KEY, {
+        auth: { persistSession: true, autoRefreshToken: true, detectSessionInUrl: true },
+      });
+
+      const $ = (id) => document.getElementById(id);
+      const authView = $("authView");
+      const dashView = $("dashView");
+      const userEmail = $("userEmail");
+      const logoutBtn = $("logoutBtn");
+
+      const STATUS_LABELS = {
+        pending: "Pending",
+        confirmed: "Confirmed",
+        invoiced: "Invoiced",
+        paid: "Paid",
+        cancelled: "Cancelled",
+      };
+
+      let bookings = [];
+      let currentDrawerId = null;
+      let realtimeChannel = null;
+
+      // ============ AUTH ============
+      const showAuth = (email) => {
+        authView.hidden = false;
+        dashView.hidden = true;
+        userEmail.hidden = true;
+        logoutBtn.hidden = true;
+      };
+
+      const showDash = (email) => {
+        authView.hidden = true;
+        dashView.hidden = false;
+        userEmail.textContent = email;
+        userEmail.hidden = false;
+        logoutBtn.hidden = false;
+        loadBookings();
+        subscribeRealtime();
+      };
+
+      $("loginForm").addEventListener("submit", async (e) => {
+        e.preventDefault();
+        const email = $("loginEmail").value.trim().toLowerCase();
+        const btn = $("loginBtn");
+        const err = $("authError");
+        const ok = $("authSuccess");
+        err.hidden = true;
+        ok.hidden = true;
+        btn.disabled = true;
+
+        const { error } = await supabase.auth.signInWithOtp({
+          email,
+          options: {
+            emailRedirectTo: window.location.origin + "/admin.html",
+            shouldCreateUser: true,
+          },
+        });
+
+        btn.disabled = false;
+        if (error) {
+          err.textContent = "Login fehlgeschlagen: " + error.message;
+          err.hidden = false;
+        } else {
+          ok.hidden = false;
+        }
+      });
+
+      logoutBtn.addEventListener("click", async () => {
+        await supabase.auth.signOut();
+        if (realtimeChannel) await supabase.removeChannel(realtimeChannel);
+        showAuth();
+      });
+
+      supabase.auth.onAuthStateChange((event, session) => {
+        if (session?.user?.email) {
+          showDash(session.user.email);
+        } else {
+          showAuth();
+        }
+      });
+
+      // Initial session check
+      supabase.auth.getSession().then(({ data }) => {
+        if (data.session?.user?.email) {
+          showDash(data.session.user.email);
+        } else {
+          showAuth();
+        }
+      });
+
+      // ============ BOOKINGS ============
+      const fmtDate = (iso) =>
+        new Date(iso).toLocaleString("de-DE", {
+          timeZone: "Europe/Berlin",
+          day: "2-digit",
+          month: "short",
+          hour: "2-digit",
+          minute: "2-digit",
+        });
+
+      const fmtEUR = (cents) =>
+        new Intl.NumberFormat("de-DE", { style: "currency", currency: "EUR", maximumFractionDigits: 0 }).format(cents);
+
+      const escape = (s) =>
+        String(s ?? "")
+          .replace(/&/g, "&amp;")
+          .replace(/</g, "&lt;")
+          .replace(/>/g, "&gt;")
+          .replace(/"/g, "&quot;");
+
+      const loadBookings = async () => {
+        const { data, error } = await supabase
+          .from("bookings")
+          .select("*")
+          .order("created_at", { ascending: false });
+
+        if (error) {
+          console.error(error);
+          $("bookingsBody").innerHTML = `<tr><td colspan="6" class="bookings-empty bookings-empty--error">Fehler beim Laden: ${escape(error.message)}</td></tr>`;
+          return;
+        }
+        bookings = data || [];
+        render();
+      };
+
+      const computeStats = () => {
+        const countedStatus = ["confirmed", "invoiced", "paid"];
+        const belegt = bookings.filter((b) => countedStatus.includes(b.status)).length;
+        const pending = bookings.filter((b) => b.status === "pending").length;
+        const revenue = bookings
+          .filter((b) => countedStatus.includes(b.status))
+          .reduce((s, b) => s + (b.preis_netto || 0), 0);
+        $("statTotal").textContent = bookings.length;
+        $("statBelegt").textContent = belegt;
+        $("statPending").textContent = pending;
+        $("statRevenue").textContent = fmtEUR(revenue);
+      };
+
+      const matchesFilter = (b) => {
+        const q = $("searchInput").value.toLowerCase().trim();
+        const status = $("filterStatus").value;
+        if (status && b.status !== status) return false;
+        if (!q) return true;
+        return [b.vorname, b.nachname, b.firma, b.email, b.gewerk, b.ort]
+          .filter(Boolean)
+          .some((v) => v.toLowerCase().includes(q));
+      };
+
+      const render = () => {
+        computeStats();
+        const tbody = $("bookingsBody");
+        const filtered = bookings.filter(matchesFilter);
+        if (filtered.length === 0) {
+          tbody.innerHTML = `<tr><td colspan="6" class="bookings-empty">${bookings.length === 0 ? "Noch keine Buchungen." : "Keine Treffer."}</td></tr>`;
+          return;
+        }
+        tbody.innerHTML = filtered
+          .map(
+            (b) => `
+            <tr data-id="${b.id}">
+              <td class="cell-date">${escape(fmtDate(b.created_at))}</td>
+              <td><strong>${escape(b.vorname)} ${escape(b.nachname)}</strong></td>
+              <td>${escape(b.firma || "—")}<br><span class="cell-muted">${escape(b.gewerk || "—")}</span></td>
+              <td><a href="mailto:${escape(b.email)}">${escape(b.email)}</a></td>
+              <td>
+                <select class="status-pill status-pill--${b.status}" data-id="${b.id}" data-field="status">
+                  ${Object.entries(STATUS_LABELS)
+                    .map(
+                      ([v, l]) =>
+                        `<option value="${v}" ${b.status === v ? "selected" : ""}>${l}</option>`
+                    )
+                    .join("")}
+                </select>
+              </td>
+              <td>
+                <button type="button" class="row-open" data-id="${b.id}">Öffnen ↗</button>
+              </td>
+            </tr>`
+          )
+          .join("");
+
+        tbody.querySelectorAll("select[data-field='status']").forEach((sel) => {
+          sel.addEventListener("change", async (e) => {
+            const id = e.target.dataset.id;
+            const newStatus = e.target.value;
+            await updateBooking(id, { status: newStatus });
+          });
+        });
+        tbody.querySelectorAll(".row-open").forEach((btn) => {
+          btn.addEventListener("click", () => openDrawer(btn.dataset.id));
+        });
+      };
+
+      const updateBooking = async (id, patch) => {
+        const idx = bookings.findIndex((b) => b.id === id);
+        if (idx === -1) return;
+        const prev = bookings[idx];
+        bookings[idx] = { ...prev, ...patch };
+        render();
+        const { error } = await supabase.from("bookings").update(patch).eq("id", id);
+        if (error) {
+          bookings[idx] = prev;
+          render();
+          alert("Speichern fehlgeschlagen: " + error.message);
+        }
+      };
+
+      $("refreshBtn").addEventListener("click", loadBookings);
+      $("searchInput").addEventListener("input", render);
+      $("filterStatus").addEventListener("change", render);
+
+      // ============ DRAWER ============
+      const drawer = $("drawer");
+      const openDrawer = (id) => {
+        const b = bookings.find((x) => x.id === id);
+        if (!b) return;
+        currentDrawerId = id;
+        $("drawerId").textContent = `ID ${id.slice(0, 8)} · ${fmtDate(b.created_at)}`;
+        $("drawerName").textContent = `${b.vorname} ${b.nachname}`;
+        $("drawerBody").innerHTML = `
+          <div class="drawer-section">
+            <p class="drawer-section__label">Kontakt</p>
+            <dl class="drawer-dl">
+              <div><dt>Firma</dt><dd>${escape(b.firma || "—")}</dd></div>
+              <div><dt>Gewerk</dt><dd>${escape(b.gewerk || "—")}</dd></div>
+              <div><dt>E-Mail</dt><dd><a href="mailto:${escape(b.email)}">${escape(b.email)}</a></dd></div>
+              <div><dt>Telefon</dt><dd>${b.telefon ? `<a href="tel:${escape(b.telefon)}">${escape(b.telefon)}</a>` : "—"}</dd></div>
+            </dl>
+          </div>
+          <div class="drawer-section">
+            <p class="drawer-section__label">Rechnungsadresse</p>
+            <p class="drawer-address">${escape(b.strasse)}<br>${escape(b.plz)} ${escape(b.ort)}<br>${escape(b.land || "Deutschland")}</p>
+            <dl class="drawer-dl">
+              <div><dt>USt-IdNr.</dt><dd>${escape(b.ust_id || "—")}</dd></div>
+            </dl>
+          </div>
+          <div class="drawer-section">
+            <p class="drawer-section__label">Workflow</p>
+            <div class="drawer-field">
+              <label for="d-status">Status</label>
+              <select id="d-status">
+                ${Object.entries(STATUS_LABELS)
+                  .map(([v, l]) => `<option value="${v}" ${b.status === v ? "selected" : ""}>${l}</option>`)
+                  .join("")}
+              </select>
+            </div>
+            <div class="drawer-field">
+              <label for="d-termin">Workshop-Termin</label>
+              <input type="date" id="d-termin" value="${escape(b.workshop_termin || "")}" />
+            </div>
+            <div class="drawer-field">
+              <label for="d-invoice">Rechnungsnummer</label>
+              <input type="text" id="d-invoice" value="${escape(b.invoice_number || "")}" placeholder="z. B. 2026-001" />
+            </div>
+            <div class="drawer-field">
+              <label for="d-notes">Interne Notiz</label>
+              <textarea id="d-notes" rows="3" placeholder="Nur intern sichtbar">${escape(b.admin_notes || "")}</textarea>
+            </div>
+          </div>
+          ${b.notiz ? `<div class="drawer-section">
+            <p class="drawer-section__label">Anmerkung vom Kunden</p>
+            <p class="drawer-quote">${escape(b.notiz)}</p>
+          </div>` : ""}
+          <div class="drawer-section drawer-section--meta">
+            <p class="drawer-section__label">Audit</p>
+            <dl class="drawer-dl drawer-dl--small">
+              <div><dt>Buchungs-ID</dt><dd class="mono">${escape(b.id)}</dd></div>
+              <div><dt>Eingegangen</dt><dd>${escape(fmtDate(b.created_at))}</dd></div>
+              <div><dt>IP</dt><dd>${escape(b.ip_address || "—")}</dd></div>
+              <div><dt>Verbindlich</dt><dd>${b.binding_accepted ? "✓ Bestätigt" : "—"}</dd></div>
+            </dl>
+          </div>
+        `;
+        drawer.hidden = false;
+        document.body.style.overflow = "hidden";
+      };
+
+      const closeDrawer = () => {
+        drawer.hidden = true;
+        currentDrawerId = null;
+        document.body.style.overflow = "";
+      };
+
+      drawer.querySelectorAll("[data-close]").forEach((el) =>
+        el.addEventListener("click", closeDrawer)
+      );
+
+      $("drawerSave").addEventListener("click", async () => {
+        if (!currentDrawerId) return;
+        const btn = $("drawerSave");
+        btn.disabled = true;
+        const patch = {
+          status: $("d-status").value,
+          workshop_termin: $("d-termin").value || null,
+          invoice_number: $("d-invoice").value.trim() || null,
+          admin_notes: $("d-notes").value.trim() || null,
+        };
+        await updateBooking(currentDrawerId, patch);
+        btn.disabled = false;
+        closeDrawer();
+      });
+
+      document.addEventListener("keydown", (e) => {
+        if (e.key === "Escape" && !drawer.hidden) closeDrawer();
+      });
+
+      // ============ REALTIME ============
+      const subscribeRealtime = () => {
+        if (realtimeChannel) supabase.removeChannel(realtimeChannel);
+        realtimeChannel = supabase
+          .channel("bookings-changes")
+          .on(
+            "postgres_changes",
+            { event: "*", schema: "public", table: "bookings" },
+            (payload) => {
+              if (payload.eventType === "INSERT") {
+                bookings.unshift(payload.new);
+              } else if (payload.eventType === "UPDATE") {
+                const idx = bookings.findIndex((b) => b.id === payload.new.id);
+                if (idx !== -1) bookings[idx] = payload.new;
+              } else if (payload.eventType === "DELETE") {
+                bookings = bookings.filter((b) => b.id !== payload.old.id);
+              }
+              render();
+            }
+          )
+          .subscribe();
+      };
+    </script>
+  </body>
+</html>
