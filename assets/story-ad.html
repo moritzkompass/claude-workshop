@@ -1,0 +1,259 @@
+<!doctype html>
+<html lang="de">
+<head>
+<meta charset="utf-8" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Geist:wght@300;400;500;600;700;800;900&family=Geist+Mono:wght@400;500&display=swap" rel="stylesheet" />
+<style>
+  :root {
+    --bg: #fbfbfd;
+    --surface: #f4f4f7;
+    --ink: #1d1d1f;
+    --ink-2: #2c2c2e;
+    --muted: #6e6e73;
+    --faint: #d2d2d7;
+    --accent: #0a52e0;
+    --accent-soft: #e4ecff;
+    --hairline: rgba(0,0,0,0.08);
+    --sans: 'Geist', -apple-system, system-ui, sans-serif;
+    --mono: 'Geist Mono', ui-monospace, SFMono-Regular, Menlo, monospace;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; -webkit-font-smoothing: antialiased; }
+  html, body { width: 1080px; height: 1920px; background: var(--bg); color: var(--ink); font-family: var(--sans); overflow: hidden; }
+
+  .story {
+    position: relative;
+    width: 1080px;
+    height: 1920px;
+    background: var(--bg);
+    overflow: hidden;
+  }
+
+  /* Subtle radial wash so the background isn't dead-flat */
+  .wash {
+    position: absolute; inset: 0;
+    background:
+      radial-gradient(80% 50% at 50% 20%, #ffffff 0%, rgba(255,255,255,0) 60%),
+      radial-gradient(120% 80% at 100% 100%, var(--accent-soft) 0%, rgba(228,236,255,0) 55%);
+  }
+
+  /* Top eyebrow strip — mirrors site nav language */
+  .eyebrow {
+    position: absolute;
+    top: 84px;
+    left: 80px;
+    right: 80px;
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    font-family: var(--mono);
+    font-size: 22px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--muted);
+  }
+  .eyebrow .dot { width: 9px; height: 9px; border-radius: 50%; background: var(--accent); }
+  .eyebrow .rule { flex: 1; height: 1px; background: var(--hairline); }
+  .eyebrow .date { color: var(--ink-2); font-weight: 500; }
+
+  /* Headline */
+  .headline {
+    position: absolute;
+    top: 200px;
+    left: 80px;
+    right: 80px;
+  }
+  .meta {
+    font-family: var(--mono);
+    font-size: 24px;
+    color: var(--muted);
+    letter-spacing: 0.06em;
+    margin-bottom: 24px;
+  }
+  .meta .blue { color: var(--accent); }
+  .h1 {
+    font-family: var(--sans);
+    font-weight: 700;
+    font-size: 156px;
+    line-height: 0.92;
+    letter-spacing: -0.045em;
+    color: var(--ink);
+  }
+  .h1 .light { font-weight: 300; color: var(--muted); }
+  .h1 .stop { color: var(--accent); }
+  .sub {
+    margin-top: 36px;
+    font-family: var(--sans);
+    font-weight: 400;
+    font-size: 40px;
+    line-height: 1.22;
+    letter-spacing: -0.015em;
+    color: var(--ink-2);
+    max-width: 880px;
+  }
+  .sub b { font-weight: 600; color: var(--ink); }
+
+  /* Floating site-mockup card */
+  .mock-wrap {
+    position: absolute;
+    left: 50%;
+    top: 1010px;
+    transform: translateX(-50%) rotate(-2.2deg);
+    width: 1040px;
+    filter: drop-shadow(0 40px 80px rgba(10,30,80,0.18)) drop-shadow(0 8px 24px rgba(10,30,80,0.10));
+  }
+  .mock-wrap img {
+    display: block;
+    width: 100%;
+    border-radius: 28px;
+    overflow: hidden;
+  }
+  .mock-tag {
+    position: absolute;
+    left: 50%;
+    top: 970px;
+    transform: translateX(-50%) rotate(-2.2deg);
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    background: var(--ink);
+    color: #fff;
+    font-family: var(--mono);
+    font-size: 20px;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    padding: 12px 20px;
+    border-radius: 999px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.25);
+    z-index: 3;
+  }
+  .mock-tag .pulse { width: 8px; height: 8px; border-radius: 50%; background: #4ade80; box-shadow: 0 0 14px rgba(74,222,128,0.9); }
+
+  /* Bottom block */
+  .bottom {
+    position: absolute;
+    left: 80px;
+    right: 80px;
+    bottom: 96px;
+  }
+  .row {
+    display: flex;
+    align-items: center;
+    gap: 24px;
+    margin-bottom: 30px;
+    font-family: var(--mono);
+    font-size: 22px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--muted);
+  }
+  .row .chip {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    background: #ffffff;
+    color: var(--ink);
+    border: 1px solid var(--hairline);
+    border-radius: 999px;
+    padding: 12px 20px;
+    font-weight: 500;
+  }
+  .row .chip b { color: var(--accent); font-weight: 600; }
+  .row .sep { color: var(--faint); }
+
+  .cta {
+    display: inline-flex;
+    align-items: center;
+    gap: 16px;
+    padding: 30px 38px 30px 42px;
+    background: var(--accent);
+    color: #fff;
+    border-radius: 999px;
+    font-family: var(--sans);
+    font-weight: 600;
+    font-size: 38px;
+    letter-spacing: -0.012em;
+    box-shadow: 0 24px 70px rgba(10,82,224,0.45), 0 6px 18px rgba(10,82,224,0.25);
+  }
+  .cta .arrow {
+    display: inline-flex;
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    background: rgba(255,255,255,0.18);
+    color: #fff;
+    align-items: center;
+    justify-content: center;
+    font-size: 22px;
+    font-weight: 500;
+  }
+  .cta .domain {
+    margin-left: 14px;
+    padding-left: 18px;
+    border-left: 1px solid rgba(255,255,255,0.25);
+    color: rgba(255,255,255,0.78);
+    font-weight: 400;
+    font-size: 30px;
+    letter-spacing: -0.005em;
+  }
+
+  .foot {
+    position: absolute;
+    left: 80px;
+    bottom: 48px;
+    font-family: var(--mono);
+    font-size: 18px;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--muted);
+  }
+  .foot .strong { color: var(--ink); font-weight: 500; }
+</style>
+</head>
+<body>
+  <div class="story">
+    <div class="wash"></div>
+
+    <div class="eyebrow">
+      <span class="dot"></span>
+      <span>Claude Code Workshop · Region Speyer</span>
+      <span class="rule"></span>
+      <span class="date">Sa. 30. Mai 2026</span>
+    </div>
+
+    <div class="headline">
+      <div class="meta">99&nbsp;% der Handwerker nutzen KI&nbsp;nicht. <span class="blue">Christian schon.</span></div>
+      <div class="h1">
+        27&nbsp;Stunden<br/>
+        <span class="light">pro Woche</span><br/>
+        gespart<span class="stop">.</span>
+      </div>
+      <div class="sub">
+        Christian Lindt (Roeli&nbsp;GmbH, Fensterbau) lässt einen <b>KI-Agenten</b>
+        Anfragen lesen und Angebote vorbereiten. In <b>23&nbsp;Sekunden</b>.
+      </div>
+    </div>
+
+    <div class="mock-tag"><span class="pulse"></span>Live im Betrieb · seit 6 Monaten</div>
+    <div class="mock-wrap">
+      <img src="./_snip-mockup.png" alt="" />
+    </div>
+
+    <div class="bottom">
+      <div class="row">
+        <span class="chip"><b>1 Tag</b> · 10–17 Uhr</span>
+        <span class="chip"><b>Max. 15</b> Plätze</span>
+        <span class="chip">Vor Ort · Speyer</span>
+      </div>
+      <div class="cta">
+        Platz sichern
+        <span class="arrow">↗</span>
+        <span class="domain">claude-workshop.de</span>
+      </div>
+    </div>
+
+    <div class="foot"><span class="strong">Mit Christian Lindt &amp; Moritz Kompaß</span> &nbsp;·&nbsp; Streng limitiert</div>
+  </div>
+</body>
+</html>
